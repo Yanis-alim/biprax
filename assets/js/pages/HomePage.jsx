@@ -3,7 +3,7 @@ import equipe1 from './../../image/equipe1.jpg';
 import tel from "./../../image/tel.jpg";
 import mail from "./../../image/mail.jpg";
 import pos from "./../../image/pos.jpg";
-import map from "./../../image/map.png"
+
 import logo from "./../../image/logo-biprax.png";
 
 const HomePage = (props) => {
@@ -139,7 +139,7 @@ const HomePage = (props) => {
 </section>
 
 <section className="card-body hov">
-<img src={map}  class="rounded mx-auto d-block" alt="..."/>
+
 </section>
 
 
