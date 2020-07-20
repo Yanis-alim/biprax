@@ -65,7 +65,7 @@ const UsersPage = (props) => {
     <div className="container pt-5 haut">
     <div className="mb-3 d-flex justify-content-between align-items-center">
     <h1>Les Utilisateur</h1>
-    {role=="ROLE_ADMIN" && <Link to ="/users/new" className="btn btn-primary">Créer un user</Link>}
+     <Link to ="/users/new" className="btn btn-primary">Créer un user</Link>
 
     </div>
     <table className="table table-hover">
