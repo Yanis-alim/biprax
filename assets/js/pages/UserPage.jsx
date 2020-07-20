@@ -147,14 +147,14 @@ const handleSubmit = async event =>{
         if (user.lName !== "" && user.fName !== "" && user.phoneNumber !== "" && user.adress1 !=="" && user.email !== "" && user.password !=="" && user.zipCode !== "" && user.city !=="" && user.dateOfBirth !=="" ){
             if (editing){
                
-                const response = await axios.put("http://localhost:8001/api/users/" + id,user);
+                const response = await axios.put("http://localhost:8000/api/users/" + id,user);
                 toast.success("votre compte a été mise a jour veuillez vous reconnecter");
                 history.replace("/login");
                 
             }
             else{
        
-        const response = await axios.post("http://localhost:8001/api/users",{...user, idcivility: `/api/civilities/${user.idcivility}`, roles: [user.roles]});
+        const response = await axios.post("http://localhost:8000/api/users",{...user, idcivility: `/api/civilities/${user.idcivility}`, roles: [user.roles]});
         console.log(response);
         
         toast.success("compte créé");

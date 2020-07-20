@@ -62,7 +62,7 @@ const MissionPage = ({history}) => {
         
         try{
             if (mission.title != "" && mission.discription != "" && mission.startDate !=""  ){
-            await axios.post("http://localhost:8001/api/missions",{...mission, customer: `/api/customers/${mission.customer}`});
+            await axios.post("http://localhost:8000/api/missions",{...mission, customer: `/api/customers/${mission.customer}`});
             toast.success("mission ajouté");
             
             history.replace("/missions");
@@ -111,7 +111,7 @@ const MissionPage = ({history}) => {
 
           </Select>
 
-          <Field name="startDate" type="text" placeholder="AAAA/MM/JJ" label ="Date du debut" onChange={handleChange} value={mission.startDate} error={errors.startDate}/>
+          <Field name="startDate" type="text" placeholder="AAuAA/MM/JJ" label ="Date du debut" onChange={handleChange} value={mission.startDate} error={errors.startDate}/>
           <Field name="endDate" type="text" placeholder="AAAA/MM/JJ" label ="Date du fin" onChange={handleChange} value={mission.endDate} error={errors.endDate}/>
           <div className="from-group">
             <button type="submit" className="btn btn-success">

@@ -1,4 +1,5 @@
-export const API_URL =process.env.API_URL;
+export const API_URL = "http://biprax.herokuapp.com/api/";
+
 
 export const  ABSENCES_URL = API_URL + "absences";
 export const  ACTUALITES_URL = API_URL+"actualites" ;
