@@ -71,6 +71,9 @@ const  Navbar  = ({isAuthenticated, onLogout, history}) => {
         {isAuthenticated && <> <li className="nav-item">
         <NavLink className="nav-link" to="/users">UTILISATEURS</NavLink>
         </li></>}</div> }
+        <li className="nav-item">
+        <NavLink className="nav-link" to="/users">UTILISATEURS</NavLink>
+        </li>
         {role=="ROLE_ADMIN" && <div>
         {isAuthenticated && <> <li className="nav-item">
         <NavLink className="nav-link" to="/missions">MISSIONS</NavLink>
