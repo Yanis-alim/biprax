@@ -50,6 +50,7 @@ const handleSubmit = async event => {
     
 
      }catch({ response }){
+         toast.warning("error")
          console.log(response);
        const {violations} =response.data;
 
