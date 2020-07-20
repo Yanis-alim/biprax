@@ -4,7 +4,7 @@ import {ANNONCES_URL} from "../config";
 function findAll(){
 
     return axios
-    .get(ANNONCES_URL)
+    .get("http://biprax.herokuapp.com/api/annonces")
     .then(response => response.data['hydra:member']);
 }
 
