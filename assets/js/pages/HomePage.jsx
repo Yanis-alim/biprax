@@ -1,8 +1,5 @@
 import React from 'react';
-import equipe1 from './../../image/equipe1.jpg';
-import tel from "./../../image/tel.jpg";
-import mail from "./../../image/mail.jpg";
-import pos from "./../../image/pos.jpg";
+
 
 import logo from "./../../image/logo-biprax.png";
 
