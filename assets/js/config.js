@@ -1,4 +1,4 @@
-export const API_URL = "https://biprax.herokuapp.com/api/";
+export const API_URL = "Access-Control-Allow-Origin: https://biprax.herokuapp.com/api/";
 
 
 export const  ABSENCES_URL = API_URL + "absences";
