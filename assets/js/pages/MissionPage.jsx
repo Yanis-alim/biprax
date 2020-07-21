@@ -7,7 +7,6 @@ import CustomersAPI from '../services/CustomersAPI';
 import MissionsAPI from '../services/MissionsAPI';
 import axios from "axios";
 import { toast } from 'react-toastify';
-import { create } from 'core-js/fn/object';
 
 
 const MissionPage = ({history}) => {
@@ -77,7 +76,6 @@ const MissionPage = ({history}) => {
 
      }
         catch(error){
-            toast.success("errur");
             console.log(error.response);
 
         }
