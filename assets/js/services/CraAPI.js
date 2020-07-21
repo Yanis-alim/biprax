@@ -14,6 +14,11 @@ function find(user,mois,annee){
     .then(response => response.data['hydra:member']);
 }
 
+function findC(mois,annee){
+    return axios.get(CRA_URL+"?calendar.monthOfYear="+mois+"&&calendar.idCalendarYears="+annee)
+    .then(response => response.data['hydra:member']);
+}
+
 function create(cra){
     var date = new Date()
             var gsm =date.getTimezoneOffset() / 60;
@@ -25,5 +30,6 @@ function create(cra){
 export default {
     findAll: findAll,
     find,
-    create
+    create,
+    findC
 }

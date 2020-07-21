@@ -4,6 +4,7 @@ import TypeImput from '../services/TypeImput';
 import CraAPI from '../services/CraAPI';
 import UsersAPI from '../services/UsersAPI';
 import Select from './../components/forms/Select';
+
 import Field from './../components/forms/Field';
 
 const RaportM = (props) => {
@@ -12,12 +13,19 @@ const RaportM = (props) => {
   const [day ,setday] = useState({
     monthOfYear:""
   });
+  const [jourO,setJourO]=useState();
+  const [jourT,setJourT]=useState();
   const [cra ,setCra]= useState({
     calendar:"",
     imputation:"",
     nbimput:0
 
  });
+ const [cras,setCras]=useState([]);
+ 
+ 
+ 
+ 
 
  const fatchImput = async () =>{
   try{
@@ -41,6 +49,7 @@ useEffect(()=>{
 
 },[]);
 
+
   var annee =new Date();
   annee=annee.getFullYear();
   var date = new Date()
@@ -51,15 +60,27 @@ useEffect(()=>{
     event.preventDefault();
     
     try{
-           
-            
-              
-              
-
-
-           
+      var a=0;
+      var b=0;
         const data =await CalendarAPI.find(day.monthOfYear,annee);
        setdays(data);
+     
+       const jours =data.map(jour =>(jour.isDayOff==0 && jour.isWeekend==0)&& (a=a+1)
+         
+       )
+       setJourO(a);
+       const dat =await CraAPI.findC(day.monthOfYear,annee);
+       setCras(dat);
+      console.log(dat);
+      
+      dat.map(j=>(j.imputation=="/api/type_imputs/2") && (b=b+j.nbimput));
+      setJourT(b);
+
+      
+       
+       
+      
+
       
         
 }
@@ -105,12 +126,15 @@ const handleChangec =({ currentTarget }) =>{
   
 };
 
+
+
   return (
   
   
   <div className="boddy">
     <div className="tete">
     <h3>Rapport mensuel activite</h3>
+    
     <div className="form-group">
     <form onSubmit={handleSubmit}>
     <Select
@@ -135,6 +159,10 @@ const handleChangec =({ currentTarget }) =>{
                 </button>
    </form>
    </div>
+   <div>
+  <h4>nombre de jour ouvret :{jourO}</h4>
+      <h4>nobre de jour enregstré :{jourT} </h4>
+    </div>
   
   
   

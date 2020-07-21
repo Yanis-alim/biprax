@@ -21,7 +21,9 @@ const ActualitesPage = (isAuthenticated) => {
    //recuperation des Actualites 
    const fetchActualites = async ()=>{
     try{
+      
         const data =await ActualitesAPI.findAll();
+        
         setActualites(data);
         setLoading(false);
         

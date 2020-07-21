@@ -19,7 +19,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *    }
  * 
  * )
- * @ApiFilter(SearchFilter::class,properties={"user","calendar","calendar.monthNameFR","calendar.idCalendarYears"})
+ * @ApiFilter(SearchFilter::class,properties={"user","calendar","calendar.monthNameFR","calendar.idCalendarYears","calendar.monthOfYear"})
  */
 class Cra
 {
