@@ -7,6 +7,7 @@ import CustomersAPI from '../services/CustomersAPI';
 import MissionsAPI from '../services/MissionsAPI';
 import axios from "axios";
 import { toast } from 'react-toastify';
+import { create } from 'core-js/fn/object';
 
 
 const MissionPage = ({history}) => {
@@ -62,7 +63,7 @@ const MissionPage = ({history}) => {
         
         try{
             if (mission.title != "" && mission.discription != "" && mission.startDate !=""  ){
-            await axios.post("http://localhost:8000/api/missions",{...mission, customer: `/api/customers/${mission.customer}`});
+            await create(mission);
             toast.success("mission ajouté");
             
             history.replace("/missions");
@@ -76,6 +77,7 @@ const MissionPage = ({history}) => {
 
      }
         catch(error){
+            toast.success("errur");
             console.log(error.response);
 
         }

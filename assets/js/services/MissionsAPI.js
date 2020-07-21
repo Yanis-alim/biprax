@@ -16,7 +16,12 @@ function deleteMission(id){
 
 
 }
+
+function create(mission){
+    return axios.post(MISSION_URL,{...mission, customer: `/api/customers/${mission.customer}`})
+}
 export default {
     findAll: findAll,
-    delete: deleteMission
+    delete: deleteMission,
+    create
 }
