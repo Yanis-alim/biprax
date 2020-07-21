@@ -63,7 +63,7 @@ const MissionPage = ({history}) => {
         
         try{
             if (mission.title != "" && mission.discription != "" && mission.startDate !=""  ){
-            await create(mission);
+            await MissionsAPI.create(mission);
             toast.success("mission ajouté");
             
             history.replace("/missions");
