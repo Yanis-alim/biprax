@@ -107,7 +107,7 @@ const ContratBPage = (props) => {
 }
 catch({ response }){
     const {violations} =response.data;
-    console.log(response);
+    
 
     if(violations){
        

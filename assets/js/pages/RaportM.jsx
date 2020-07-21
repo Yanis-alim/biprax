@@ -82,9 +82,9 @@ useEffect(()=>{
     event.preventDefault();
     
     try{    
-      console.log(cra);
+      
         const data =await CraAPI.create(cra);
-       console.log(data);
+      
       
         
 }

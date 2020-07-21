@@ -111,7 +111,7 @@ const getRole = async () =>{
     const tokens = AuthAPI.getToken();
     const decoded = jwt_decode(tokens);
     const data =await UsersAPI.find(decoded.username);
-    console.log(data[0].roles)
+    
     setRole(data[0].roles);
     };
    
@@ -155,7 +155,7 @@ const handleSubmit = async event =>{
             else{
        
         const response = await axios.post("http://localhost:8000/api/users",{...user, idcivility: `/api/civilities/${user.idcivility}`, roles: [user.roles]});
-        console.log(response);
+        
         
         toast.success("compte créé");
         history.replace("/users");}}
@@ -169,7 +169,7 @@ const handleSubmit = async event =>{
 }
 catch({ response }){
     const {violations} =response.data;
-    console.log(response);
+    
 
     if(violations){
        

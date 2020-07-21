@@ -40,7 +40,7 @@ const Compte = (props) => {
   const tokens = AuthAPI.getToken();
   const decoded = jwt_decode(tokens);
   const data =await UsersAPI.find(decoded.username);
-  console.log(data[0].roles)
+  
   setRole(data[0].roles);
   };
  
@@ -57,8 +57,7 @@ getRole();
             
         const data =await UsersAPI.find(decoded.username);
         const {id,fName,lName,username,roles,password,dateOfBirth,adress1,adress2,zipCode,city,phoneNumber,email, idcivility}=data[0];
-        console.log(data);
-        console.log(fName);
+        
         users.id=id;
         users.fName=fName;
         

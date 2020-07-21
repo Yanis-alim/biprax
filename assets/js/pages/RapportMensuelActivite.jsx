@@ -79,8 +79,7 @@ const RapportMensuelActivite = (props) => {
                           
            
            
-                       console.log(cra.user);
-                       console.log(cra.monthNameFR);
+                       
                     const data =await CraAPI.find(cra.user,cra.monthNameFR,cra.idCalendarYears);
                    setCras(data);
                   

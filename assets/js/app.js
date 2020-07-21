@@ -112,11 +112,11 @@ const App = () => {
               <PrivateRoute path="/type_contracts" isAuthenticated={isAuthenticated} component={TypeContractPage} /> 
              
               <PrivateRoute path="/raportm" isAuthenticated={isAuthenticated} component={RaportM} /> 
-              {/* <PrivateRoute path="/users/:id" isAuthenticated={isAuthenticated} component={UserPage} />  */}
-              <Route path="/users/:id" component={UserPage}/>
-              <Route path="/users" component={UsersPage}/>
+              <PrivateRoute path="/users/:id" isAuthenticated={isAuthenticated} component={UserPage} /> 
+              
+            
               <PrivateRoute path="/compte" isAuthenticated={isAuthenticated} component={Compte} />
-              {/* <PrivateRoute path="/users" isAuthenticated={isAuthenticated} component={UsersPage} /> */}
+              <PrivateRoute path="/users" isAuthenticated={isAuthenticated} component={UsersPage} />
               <PrivateRoute path="/missions/:id" isAuthenticated={isAuthenticated} component={MissionPage} />
               <PrivateRoute path="/missions" isAuthenticated={isAuthenticated} component={MissionsPage} />
               <PrivateRoute path="/raports/:id" isAuthenticated={isAuthenticated} component={RaportPage}/>

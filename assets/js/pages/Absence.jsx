@@ -36,7 +36,7 @@ const Absence = ({history,match}) => {
         const tokens = AuthAPI.getToken();
         const decoded = jwt_decode(tokens);
         const data =await UsersAPI.find(decoded.username);
-        console.log(data[0].roles)
+        
         setRole(data[0].roles);
         };
        
