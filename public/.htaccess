@@ -65,6 +65,5 @@ DirectoryIndex index.php
     </IfModule>
 </IfModule>
 RewriteEngine On
-RewriteCond %{HTTP_HOST} ^biprax.herokuapp\.com [NC]
 RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://{HTTP_HOST}%{REQUEST_URI}
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
