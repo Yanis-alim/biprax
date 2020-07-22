@@ -66,4 +66,4 @@ DirectoryIndex index.php
 </IfModule>
 RewriteEngine On
 RewriteCond %{HTTPS} off
-RewriteRule (.*) https://%{HTTP_HOST}/#/ [R,L]
+RewriteRule (.*) https://%{HTTP_HOST}/'#'/ [R,L]
