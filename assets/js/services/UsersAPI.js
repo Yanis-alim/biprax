@@ -26,7 +26,7 @@ function update(id){
 
 }
 
-function create (id ,user){
+function create (user){
     return axios.post(USER_URL,{...user, idcivility: `/api/civilities/${user.idcivility}`, roles: [user.roles]});
 }
 export default {
