@@ -19,7 +19,7 @@ function deleteUser(id){
 
 
 }
-function update(id){
+function update(id,user){
     
     return axios.put(USER_URL+"/" + id,{...user, idcivility: `/api/civilities/${user.idcivility}`, roles: [user.roles]});
 
