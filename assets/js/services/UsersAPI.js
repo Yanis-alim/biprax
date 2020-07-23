@@ -25,9 +25,14 @@ function update(id){
 
 
 }
+
+function create (id ,user){
+    return axios.put(USER_URL+"/" + id,user);
+}
 export default {
     findAll: findAll,
     delete: deleteUser,
     find,
-    update
+    update,
+    create
 }

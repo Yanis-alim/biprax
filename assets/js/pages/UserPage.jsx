@@ -147,7 +147,7 @@ const handleSubmit = async event =>{
         if (user.lName !== "" && user.fName !== "" && user.phoneNumber !== "" && user.adress1 !=="" && user.email !== "" && user.password !=="" && user.zipCode !== "" && user.city !=="" && user.dateOfBirth !=="" ){
             if (editing){
                
-                const response = await axios.put("http://localhost:8000/api/users/" + id,user);
+                const response = await create(id,user);
                 toast.success("votre compte a été mise a jour veuillez vous reconnecter");
                 history.replace("/login");
                 
