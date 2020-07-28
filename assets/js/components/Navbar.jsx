@@ -40,8 +40,8 @@ const  Navbar  = ({isAuthenticated, onLogout, history}) => {
       <nav className="navbar fixed-top navbar-expand-xl navbar-light bg-light  ">
      <NavLink className="navbar-brand " to="/"> BIPRAX</NavLink>
     
-     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span className="navbar-toggler-icon"></span>
   </button>
     <div className="collapse navbar-collapse labarre" id="navbarSupportedContent">
       <ul className="navbar-nav">

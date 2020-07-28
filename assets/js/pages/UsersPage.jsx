@@ -5,15 +5,17 @@ import TableLoader from '../components/loaders/TableLoader';
 import { toast } from 'react-toastify';
 import  AuthAPI from "../services/AuthAPI";
 import jwt_decode from 'jwt-decode';
+import Modal from '../components/Modal';
 
 
 
 
 
-const UsersPage = (props) => {
+const UsersPage = ({history}) => {
     const [role ,setRole] = useState([]);
     const [users,setUsers]=useState([]);
     const [loading,setLoading]=useState(true);
+    const [sup,setSup] =useState(false);
     const fatchUser = async () =>{
         try{
         const data =await UsersAPI.findAll();
@@ -44,12 +46,19 @@ const UsersPage = (props) => {
       useEffect(()=>{
       getRole();
       },[]);
-
+    
+      const popup = async id =>{
+          setSup(true);
+      }
     const handleDelete = async id =>{
         const originaleUsers =[...users];
         setUsers(users.filter(user => user.id !== id));
         try{
+            setSup(true);
+           
+             
             await UsersAPI.delete(id);
+            
             toast.info("Le compte est supprimer");
  
         }catch(error){
@@ -93,16 +102,20 @@ const UsersPage = (props) => {
                     <td>{user.city}</td>
                     <td>{user.zipCode}</td>
                     <td>
-                    {role=="ROLE_ADMIN" && <button disabled={user.contracts.length>0 } className="btn btn-sm btn-danger" onClick={() => handleDelete(user.id)} >supprimer</button>}
+                    {role=="ROLE_ADMIN" && <button disabled={user.contracts.length>0 } className="btn btn-sm btn-danger" onClick={() => setSup(true)} >supprimer</button>}
+                   
                     </td>
-                    <td></td>
+                    
+                    <td> {sup==true &&<Modal user={user}/>}</td>
                 </tr> 
+                
                 )}
             
         </tbody>}
         
 
     </table>
+    
     {loading && <TableLoader/>}
     </div>
     </> );

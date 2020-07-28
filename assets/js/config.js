@@ -1,4 +1,4 @@
-export const API_URL = "https://biprax.herokuapp.com/api/";
+export const API_URL = "http://localhost:8001/api/";
 
 
 export const  ABSENCES_URL = API_URL + "absences";
