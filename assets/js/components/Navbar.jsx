@@ -37,7 +37,7 @@ const  Navbar  = ({isAuthenticated, onLogout, history}) => {
   },[]);
     return (
       <div  className="navix">
-      <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light  ">
+      <nav className="navbar fixed-top navbar-expand-xl navbar-light bg-light  ">
      <NavLink className="navbar-brand " to="/"> BIPRAX</NavLink>
     
      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,10 +91,10 @@ const  Navbar  = ({isAuthenticated, onLogout, history}) => {
         </li>
       </ul>
       <ul className="navbar-nav ml-auto  ">
-        {isAuthenticated && <> <li className="nav-item"><NavLink to="/compte"  className="btn btn-success" >Mon Compte</NavLink></li></>}
+        {isAuthenticated && <> <li className="nav-item"><NavLink to="/compte"  className="btn btn-outline-success btt" >Mon Compte</NavLink></li></>}
         {!isAuthenticated && <> 
-          <li className="nav-item"><NavLink to="/login" className="btn btn-success">Connexion !</NavLink> </li>
-         </> ||  <li className="nav-item"><button onClick={handelLogout} className="btn btn-danger">Déconnexion !</button> </li> }
+          <li className="nav-item"><NavLink to="/login" className="btn btn-outline-success">Connexion !</NavLink> </li>
+         </> ||  <li className="nav-item"><button onClick={handelLogout} className="btn btn-outline-danger btt">Déconnexion !</button> </li> }
       
      
           </ul>
