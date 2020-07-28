@@ -9,7 +9,7 @@ import axios from "axios";
 import { toast } from 'react-toastify';
 
 
-const AnnoncePage = (props) => {
+const AnnoncePage = ({history}) => {
     const [annonce,setAnnonce]=useState({
         title:"",
         type:"",
@@ -52,7 +52,8 @@ const AnnoncePage = (props) => {
              if(annonce.title != "" && annonce.type !="" && annonce.discription !="" && annonce.profile !="" && annonce.adress1 !="" && annonce.zipCode !="" && annonce.city !="" && annonce.salary !=""){
            
             await AnnoncesAPI.create(annonce);
-            toast.success("Annonce ajoutée")}
+            toast.success("Annonce ajoutée");
+            history.replace("/annonces");}
             else{
                 toast.warning("Annonce non ajoutée il manque des information");
             }

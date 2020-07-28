@@ -205,16 +205,7 @@ h1{
 }
 
   
-.navfix{
-    position: fixed;
-           top:0px;
-			right:0px;
-            left:0px;
-            background-color: whitesmoke;
-            
-			
-			
-}
+
 
 .valeur1{
     padding-top:25px ;
@@ -274,4 +265,15 @@ footer{
   
     padding: 10px 25px;
     margin-bottom: 25px;
+}
+
+
+.labarre li{
+    font-size: 80%;
+}
+.navfix{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
 }

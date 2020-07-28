@@ -37,13 +37,13 @@ const  Navbar  = ({isAuthenticated, onLogout, history}) => {
   },[]);
     return (
       <div  className="navfix">
-      <nav className="navbar navbar-expand-sm bg-light ">
-     <NavLink className="nav-link " to="/">BIPRAX</NavLink>
+      <nav className="navbar navbar-expand-sm bg-light navbar-fixed-top ">
+     <NavLink className="navbar-brand " to="/"> BIPRAX</NavLink>
     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>
     </button>
   
-    <div className="collapse navbar-collapse" id="navbarColor03">
+    <div className="collapse navbar-collapse labarre" id="navbarColor03">
       <ul className="navbar-nav">
        
         <li className="nav-item">
@@ -67,34 +67,24 @@ const  Navbar  = ({isAuthenticated, onLogout, history}) => {
         {isAuthenticated && <> <li className="nav-item">
         <NavLink className="nav-link" to="/societies">SOCIÉTÉS</NavLink>
         </li></>}</div>}
-        {role=="ROLE_ADMIN" && <div>
-        {isAuthenticated && <> <li className="nav-item">
+        
+        {(role=="ROLE_ADMIN" && isAuthenticated) &&<li className="nav-item">
         <NavLink className="nav-link" to="/users">UTILISATEURS</NavLink>
-        </li></>}</div> }
+        </li>}
        
-        {role=="ROLE_ADMIN" && <div>
-        {isAuthenticated && <> <li className="nav-item">
+        
+        {(role=="ROLE_ADMIN" &&isAuthenticated) && <> <li className="nav-item">
         <NavLink className="nav-link" to="/missions">MISSIONS</NavLink>
-        </li></>}</div> }
+        </li></>}
         {role=="ROLE_ADMIN" && <div>
         {isAuthenticated && <> <li className="nav-item">
         <NavLink className="nav-link" to="customers">CLIENTS</NavLink>
         </li></>}</div>}
-        {role=="ROLE_ADMIN" && <div>
-        {isAuthenticated && <> <li className="nav-item">
-        <NavLink className="nav-link" to="/contracts">CONTRATS</NavLink>
-        </li></>}</div>}
+       
         {isAuthenticated && <> <li className="nav-item">
         <NavLink className="nav-link" to="/raportm">CRA</NavLink>
         </li></>}
-        {role=="ROLE_ADMIN" && <div>
-        {isAuthenticated && <> <li className="nav-item">
-        <NavLink className="nav-link" to="/contract_b2_bs">CONTRATS B2B</NavLink>
-        </li></>}</div>}
-        {role=="ROLE_ADMIN" && <div>
-        {isAuthenticated && <> <li className="nav-item">
-        <NavLink className="nav-link" to="/applications">CANDIDATURES</NavLink>
-        </li></>}</div>}
+        
 
           <li className="nav-item">
         <NavLink className="nav-link" to="/apropos">À PROPOS</NavLink>

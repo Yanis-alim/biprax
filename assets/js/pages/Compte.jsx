@@ -1,5 +1,6 @@
 import React,{useEffect,useState} from 'react';
-import AuthAPI from './../services/AuthAPI'
+import AuthAPI from './../services/AuthAPI';
+
 import jwt_decode from 'jwt-decode';
 import axios from "axios";
 import UsersAPI from '../services/UsersAPI';
@@ -13,7 +14,7 @@ import tel from "./../../image/logo-biprax.png";
 
 
 
-const Compte = (props) => {
+const Compte = ({isAuthenticated}) => {
     const [role ,setRole] = useState([]);
     const [users,setUsers]=useState({
         id:"",
@@ -110,7 +111,7 @@ getRole();
        
         </div>
         <div className="reste">
-    <div className=" bodycompte">
+    <div className=" container pt-5 haut">
     
     <div className="titrecompte">
      <h3>Mon Compte</h3>
@@ -127,6 +128,17 @@ getRole();
             <li className="list-group-item"> <Link to="/raports" className="btn btn-sm btn-primary ">Mes rapports</Link></li>
             <li className="list-group-item"> <Link to="/raports/new" className="btn btn-sm btn-primary ">Ajouté un rapport</Link></li>
             <li className="list-group-item"> <Link to="/rma" className="btn btn-sm btn-primary ">Rapport mensuel activite</Link></li>
+            
+        {(role=="ROLE_ADMIN" ) && <> <li  className="list-group-item">
+        <Link  to="/contract_b2_bs" className="btn btn-sm btn-primary ">CONTRATS B2B</Link>
+        </li></>}
+        
+        {(role=="ROLE_ADMIN") && <> <li  className="list-group-item">
+        <Link  to="/applications" className="btn btn-sm btn-primary ">CANDIDATURES</Link>
+        </li></>}
+        {(role=="ROLE_ADMIN")  && <li className="list-group-item">
+        <Link className="btn btn-sm btn-primary" to="/contracts">CONTRATS</Link>
+        </li>}
 
             </ul>
 

@@ -9,7 +9,7 @@ import Compte from './Compte';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const ContratBPage = (props) => {
+const ContratBPage = ({history}) => {
 
 
   
@@ -97,6 +97,7 @@ const ContratBPage = (props) => {
             
             await ContrartB2BAPI.create(contrat);
             toast.success("Contrat ajouté");
+            history.replace("/contract_b2_bs");
         }else{
             toast.warning("contrat non ajouté il manque des information");
         }
