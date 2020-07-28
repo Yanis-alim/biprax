@@ -37,13 +37,13 @@ const  Navbar  = ({isAuthenticated, onLogout, history}) => {
   },[]);
     return (
       <div  className="navix">
-      <nav className="navbar fixed-top navbar-expand-md navbar-light bg-light  ">
+      <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light  ">
      <NavLink className="navbar-brand " to="/"> BIPRAX</NavLink>
-    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-      <span className="navbar-toggler-icon"></span>
-    </button>
-  
-    <div className="collapse navbar-collapse labarre" id="navbarColor03">
+    
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+    <div className="collapse navbar-collapse labarre" id="navbarSupportedContent">
       <ul className="navbar-nav">
        
         <li className="nav-item">
