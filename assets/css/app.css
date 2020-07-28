@@ -280,3 +280,11 @@ footer{
 .btt{
     margin: 5px;
 }
+
+
+.formuc{
+    background-color:#E2E3ED;
+    padding: 25px;
+    border: solid 1px;
+    border-radius: 30px;
+}

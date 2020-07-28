@@ -144,7 +144,7 @@ const Absence = ({history,match}) => {
                     </Select>} </div> }
     <Field 
             name="startDate" 
-            label="Date de debut" 
+            label="Date de debut : *" 
             type="text"
             placeholder="yyyy/mm/dd" 
             onChange={handleChange}
@@ -160,7 +160,7 @@ const Absence = ({history,match}) => {
             value={absences.endDate}
             error= {errors.endDate}
             />
-          <Select name="type" label="type" value={absences.type} error={errors.type}  onChange={handleChange}>
+          <Select name="type" label="Type : *" value={absences.type} error={errors.type}  onChange={handleChange}>
         
         
                 <option> type</option>
@@ -173,7 +173,7 @@ const Absence = ({history,match}) => {
            </Select>
            <Field 
             name="discription" 
-            label="Discription" 
+            label="Discription : " 
             type="text"
             placeholder="..." 
             onChange={handleChange}

@@ -141,6 +141,7 @@ const handleChange =({ currentTarget }) =>{
 </section>
         
     </div>
+    <div className="formuc">
     <form onSubmit={handleSubmit}>
       <Field name ="fname" 
         type="text"
@@ -238,6 +239,7 @@ const handleChange =({ currentTarget }) =>{
         </div>
        
      </form>
+     </div>
      </div>
     </div>
     <div>
