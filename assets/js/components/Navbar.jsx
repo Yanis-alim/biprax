@@ -36,8 +36,8 @@ const  Navbar  = ({isAuthenticated, onLogout, history}) => {
   getRole();
   },[]);
     return (
-      <div  className="navfix">
-      <nav className="navbar navbar-expand-sm bg-light navbar-fixed-top ">
+      <div  className="navix">
+      <nav className="navbar fixed-top navbar-expand-md navbar-light bg-light  ">
      <NavLink className="navbar-brand " to="/"> BIPRAX</NavLink>
     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>
