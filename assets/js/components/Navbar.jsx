@@ -38,7 +38,7 @@ const  Navbar  = ({isAuthenticated, onLogout, history}) => {
     return (
       <div  className="navfix">
       <nav className="navbar navbar-expand-sm bg-light ">
-     <NavLink className="nav-link " to="/">BipRax</NavLink>
+     <NavLink className="nav-link " to="/">BIPRAX</NavLink>
     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>
     </button>
@@ -97,7 +97,7 @@ const  Navbar  = ({isAuthenticated, onLogout, history}) => {
         </li></>}</div>}
 
           <li className="nav-item">
-        <NavLink className="nav-link" to="/apropos">A PROPOS</NavLink>
+        <NavLink className="nav-link" to="/apropos">À PROPOS</NavLink>
         </li>
       </ul>
       <ul className="navbar-nav ml-auto  ">

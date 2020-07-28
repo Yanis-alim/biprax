@@ -14,9 +14,14 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Entity(repositoryClass=CalendarDateRepository::class)
- * @ApiResource
+ * @ApiResource(
+ *     normalizationContext={ 
+ *       "groups"={"cal_read"} 
+ *    }
  * 
- *  @ApiFilter(SearchFilter::class,properties={"monthOfYear","idCalendarYears","monthNameFR"})
+ * )
+ * 
+ *  @ApiFilter(SearchFilter::class,properties={"monthOfYear","dateNameFR","idCalendarYears","monthNameFR"})
  */
 class CalendarDate
 {
@@ -24,109 +29,109 @@ class CalendarDate
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"cra_read"})
+     * @Groups({"cra_read","cal_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="date")
-     * @Groups({"cra_read"})
+     * @Groups({"cra_read","cal_read"})
      */
     private $idDatePk;
 
     /**
      * @ORM\Column(type="string", length=10)
-     * @Groups({"cra_read"})
+     * @Groups({"cra_read","cal_read"})
      */
     private $dateNameFR;
 
     /**
      * @ORM\Column(type="string", length=8)
-     * @Groups({"cra_read"})
+     * @Groups({"cra_read","cal_read"})
      */
     private $dayNameOfWeekFR;
 
     /**
      * @ORM\Column(type="smallint")
-     * @Groups({"cra_read"})
+     * @Groups({"cra_read","cal_read"})
      */
     private $dayOfMonth;
 
     /**
      * @ORM\Column(type="smallint")
-     * @Groups({"cra_read"})
+     * @Groups({"cra_read","cal_read"})
      */
     private $dayOfYear;
 
     /**
      * @ORM\Column(type="smallint")
-     * @Groups({"cra_read"})
+     * @Groups({"cra_read","cal_read"})
      */
     private $isWeekend;
 
     /**
      * @ORM\Column(type="smallint")
-     * @Groups({"cra_read"})
+     * @Groups({"cra_read","cal_read"})
      */
     private $weekOfYear;
 
     /**
      * @ORM\Column(type="string", length=10)
-     * @Groups({"cra_read"})
+     * @Groups({"cra_read","cal_read"})
      */
     private $monthNameFR;
 
     /**
      * @ORM\Column(type="smallint")
-     * @Groups({"cra_read"})
+     * @Groups({"cra_read","cal_read"})
      */
     private $monthOfYear;
 
     /**
      * @ORM\Column(type="string", length=1)
-     * @Groups({"cra_read"})
+     * @Groups({"cra_read","cal_read"})
      */
     private $isLastDayOfMonth;
 
     /**
      * @ORM\Column(type="string", length=11)
-     * @Groups({"cra_read"})
+     * @Groups({"cra_read","cal_read"})
      */
     private $calendarQuarterFR;
 
     /**
      * @ORM\Column(type="smallint")
-     * @Groups({"cra_read"})
+     * @Groups({"cra_read","cal_read"})
      */
     private $idCalendarYears;
 
     /**
      * @ORM\Column(type="smallint")
-     * @Groups({"cra_read"})
+     * @Groups({"cra_read","cal_read"})
      */
     private $isDayOff;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Groups({"cra_read"})
+     * @Groups({"cra_read","cal_read"})
      */
     private $schoolHolidayFrZoneA;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Groups({"cra_read"})
+     * @Groups({"cra_read","cal_read"})
      */
     private $schoolHolidayFrZoneB;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Groups({"cra_read"})
+     * @Groups({"cra_read","cal_read"})
      */
     private $schoolHolidayFrZoneC;
 
     /**
      * @ORM\OneToMany(targetEntity=Cra::class, mappedBy="calendar")
-     * 
+     *  @Groups({"cal_read"})
      * 
      */
     private $cras;

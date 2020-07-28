@@ -34,6 +34,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      *  @Assert\NotBlank(message="le username est obligatoire")
+     * @Groups({"cra_read","cal_read"})
      */
     private $username;
 

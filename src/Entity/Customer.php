@@ -89,9 +89,15 @@ class Customer
      */
     private $siege;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Cra::class, mappedBy="client")
+     */
+    private $cras;
+
     public function __construct()
     {
         $this->contractB2Bs = new ArrayCollection();
+        $this->cras = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -270,6 +276,37 @@ class Customer
     public function setSiege(?string $siege): self
     {
         $this->siege = $siege;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Cra[]
+     */
+    public function getCras(): Collection
+    {
+        return $this->cras;
+    }
+
+    public function addCra(Cra $cra): self
+    {
+        if (!$this->cras->contains($cra)) {
+            $this->cras[] = $cra;
+            $cra->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCra(Cra $cra): self
+    {
+        if ($this->cras->contains($cra)) {
+            $this->cras->removeElement($cra);
+            // set the owning side to null (unless already changed)
+            if ($cra->getClient() === $this) {
+                $cra->setClient(null);
+            }
+        }
 
         return $this;
     }

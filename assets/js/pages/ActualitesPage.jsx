@@ -92,7 +92,7 @@ return ( <>
       
       <div className="imagemain">
           <h1 className="titel">
-            <span><span>L'actualites  !! </span></span></h1>
+            <span><span>L'ACTUALITÉ !!</span></span></h1>
          
 
           
@@ -103,11 +103,11 @@ return ( <>
   </section>
   {!loading &&  <div className="container pt-5">
   <div className="mb-3 d-flex justify-content-between align-items-center">
-       <h1>Liste des actualites</h1>
+       <h1>LISTE DES ACTUALITÉS</h1>
        {!isAuthenticated && <div>  {role=="ROLE_ADMIN" &&  <Link to ="/actualites/new" className="btn btn-primary">ajoutée une actualité</Link>}</div>}
 </div>
 
-{paginatedActualites.map( actualite => <div  className="actu">
+{paginatedActualites.map( actualite => <div key={actualite.id} className="actu">
   <h3 className="card-header">{actualite.title}</h3>
   <div className="card-body">
     <h5 className="card-title">{actualite.type}</h5>

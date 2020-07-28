@@ -19,13 +19,13 @@ class TypeImput
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     *  @Groups({"cra_read"})
+     *  @Groups({"cra_read","cal_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Groups({"cra_read"})
+     *  @Groups({"cra_read","cal_read"})
      */
     private $activity;
 

@@ -83,10 +83,16 @@ class Mission
      */
     private $raports;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Cra::class, mappedBy="mission")
+     */
+    private $cras;
+
     public function __construct()
     {
         $this->user = new ArrayCollection();
         $this->raports = new ArrayCollection();
+        $this->cras = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -205,6 +211,37 @@ class Mission
             // set the owning side to null (unless already changed)
             if ($raport->getMission() === $this) {
                 $raport->setMission(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Cra[]
+     */
+    public function getCras(): Collection
+    {
+        return $this->cras;
+    }
+
+    public function addCra(Cra $cra): self
+    {
+        if (!$this->cras->contains($cra)) {
+            $this->cras[] = $cra;
+            $cra->setMission($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCra(Cra $cra): self
+    {
+        if ($this->cras->contains($cra)) {
+            $this->cras->removeElement($cra);
+            // set the owning side to null (unless already changed)
+            if ($cra->getMission() === $this) {
+                $cra->setMission(null);
             }
         }
 

@@ -15,9 +15,10 @@ function find(user,mois,annee){
 }
 
 function findC(mois,annee){
-    return axios.get(CRA_URL+"?calendar.monthOfYear="+mois+"&&calendar.idCalendarYears="+annee)
+    return axios.get(CRA_URL+"?calendar.monthNameFR="+mois+"&&calendar.idCalendarYears="+annee)
     .then(response => response.data['hydra:member']);
 }
+
 
 function create(cra){
     var date = new Date()

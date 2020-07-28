@@ -6,7 +6,7 @@ const AproposPage = (props) => {
       
       <div className="imagemain">
           <h1 className="titel">
-            <span><span>Qui Somme Nous  !! </span></span></h1>
+            <span><span>Qui Sommes-Nous ? </span></span></h1>
          
 
           

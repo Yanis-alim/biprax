@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 
 import logo from "./../../image/logo-biprax.png";
@@ -12,14 +13,14 @@ const HomePage = (props) => {
       
       <div className="imagemain">
           <h1 className="titel">
-            <span><span> <img src={logo} className="logo"/> BIPRAX CONSULTING ensemble vers le future </span></span></h1>
+            <span><span> <img src={logo} className="logo"/> BIPRAX CONSULTING ensemble vers le futur </span></span></h1>
           <div className="citation">
-              <h3 className="titel">Le futur a été créé pour être changé le futur est entre vos mains </h3>
+              <h3 className="titel">Le futur a été créé pour être changé, le futur est entre vos mains </h3>
           
   </div>
   <div className="alaune">
-    <a href ="./html/actualites.html">  <button   type="button" aria-pressed="true" className="btn btn-secondary btn-lg  ">  Â la une   </button></a>
-          
+   
+    <Link to="/actualites" aria-pressed="true" className="btn btn-secondary btn-lg  ">  Â la une</Link>
   </div>
           
   
@@ -31,7 +32,7 @@ const HomePage = (props) => {
   <section className="valeur hov " >
     
      <div className="valeurT">
-    <h2> NOS VALEUR  </h2>
+    <h2> Nos Valeurs  </h2>
     </div>
 
 
@@ -72,7 +73,7 @@ const HomePage = (props) => {
 </div>
 <section className="mission  hov">
    <div className="valeurT">
-  <h2>Nos Mission</h2>
+  <h2> Nos Missions</h2>
   </div>
   <div className="row card-body">
       <div className="col-md-4">
@@ -119,16 +120,17 @@ const HomePage = (props) => {
         <svg width="3em" height="3em" viewBox="0 0 16 16" className="bi bi-envelope-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fillRule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
 </svg>
-        <h3>Adress mail: </h3>
-        <p>ferhat.kasmi@biprax.fr</p>
+        <h3>Adresse mail: </h3>
+        <p>contact@biprax.fr</p>
         </div>
 
         <div className="col-md-4">
         <svg width="3em" height="3em" viewBox="0 0 16 16" className="bi bi-map" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fillRule="evenodd" d="M15.817.613A.5.5 0 0 1 16 1v13a.5.5 0 0 1-.402.49l-5 1a.502.502 0 0 1-.196 0L5.5 14.51l-4.902.98A.5.5 0 0 1 0 15V2a.5.5 0 0 1 .402-.49l5-1a.5.5 0 0 1 .196 0l4.902.98 4.902-.98a.5.5 0 0 1 .415.103zM10 2.41l-4-.8v11.98l4 .8V2.41zm1 11.98l4-.8V1.61l-4 .8v11.98zm-6-.8V1.61l-4 .8v11.98l4-.8z"/>
 </svg>
-        <h3>Adress: </h3>
-        <p>	50 RUE DU SIMPLON 75018 PARIS</p>
+        <h3>Adresse: </h3>
+        <p>	Biprax Consulting
+             50 Rue Du Simplon 75018 PARIS</p>
         </div>
         
     

@@ -19,7 +19,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *    }
  * 
  * )
- * @ApiFilter(SearchFilter::class,properties={"user","calendar","calendar.monthNameFR","calendar.idCalendarYears","calendar.monthOfYear"})
+ * @ApiFilter(SearchFilter::class,properties={"user","calendar","calendar.monthNameFR","calendar.idCalendarYears","calendar.monthOfYear","calendar.dateNameFR","calendar.id"})
  */
 class Cra
 {
@@ -27,21 +27,21 @@ class Cra
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"cra_read"})
+     * @Groups({"cra_read","cal_read"})
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="cras")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"cra_read"})
+     * @Groups({"cra_read","cal_read"})
      */
     private $user;
 
    
     /**
      * @ORM\Column(type="date")
-     * @Groups({"cra_read"})
+     * @Groups({"cra_read","cal_read"})
      */
     private $dateOfIssue;
 
@@ -55,16 +55,26 @@ class Cra
     
     /**
      * @ORM\Column(type="float", nullable=true)
-     * @Groups({"cra_read"})
+     * @Groups({"cra_read","cal_read"})
      */
     private $nbimput;
 
     /**
      * @ORM\ManyToOne(targetEntity=TypeImput::class, inversedBy="cras")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"cra_read"})
+     * @Groups({"cra_read","cal_read"})
      */
     private $imputation;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Mission::class, inversedBy="cras")
+     */
+    private $mission;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Customer::class, inversedBy="cras")
+     */
+    private $client;
 
     
 
@@ -133,6 +143,30 @@ class Cra
     public function setImputation(?TypeImput $imputation): self
     {
         $this->imputation = $imputation;
+
+        return $this;
+    }
+
+    public function getMission(): ?Mission
+    {
+        return $this->mission;
+    }
+
+    public function setMission(?Mission $mission): self
+    {
+        $this->mission = $mission;
+
+        return $this;
+    }
+
+    public function getClient(): ?Customer
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Customer $client): self
+    {
+        $this->client = $client;
 
         return $this;
     }

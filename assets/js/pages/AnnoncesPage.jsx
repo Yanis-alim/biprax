@@ -7,6 +7,7 @@ import TableLoader from '../components/loaders/TableLoader';
 import { Link } from 'react-router-dom';
 import  AuthAPI from "../services/AuthAPI";
 import jwt_decode from 'jwt-decode';
+import moment from "moment";
 
 
 
@@ -82,7 +83,9 @@ const AnnoncesPage = ({isAuthenticated}) => {
 
     // pagination des données
     const paginatedAnnonces = Pagination.getData(annonces,currentPage,itemPerPage);
-   
+    
+    
+    const formatDate = (str) => moment (str).format('DD/MM/YYYY');
    
     return ( <> 
      <section className="main-image">
@@ -108,7 +111,7 @@ const AnnoncesPage = ({isAuthenticated}) => {
     <table className="table table-hover">
     <thead>
         <tr>
-        <th>ref</th>
+        <th>référence</th>
         <th>titre</th>
         <th>type</th>
         <th>profile</th>
@@ -128,7 +131,7 @@ const AnnoncesPage = ({isAuthenticated}) => {
         <td>{annonce.profile}</td>
         <td>{annonce.city}</td>
         <td className="text-center">{annonce.salary.toLocaleString()}€</td>
-        <td>{annonce.dateOfIssue}</td>
+        <td>{formatDate(annonce.dateOfIssue)}</td>
         {isAuthenticated && <div> {role=="ROLE_ADMIN" && <td>
           <button 
            onClick={() =>handleDelete(annonce.id)}
