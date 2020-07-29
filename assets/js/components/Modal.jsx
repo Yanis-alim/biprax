@@ -57,7 +57,7 @@ useEffect(()=>{
       </div>
       <div className="modal-footer">
         <button type="button" className="btn btn-primary" onClick={() => handleDelete(user) }>Supprimer</button>
-        <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => false }>Fermer</button>
+        <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => setSup(false) }>Fermer</button>
       </div>
     </div>
   </div>
