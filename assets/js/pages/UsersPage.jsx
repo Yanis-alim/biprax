@@ -102,7 +102,7 @@ const UsersPage = ({history}) => {
                     <td>{user.city}</td>
                     <td>{user.zipCode}</td>
                     <td>
-                    {role=="ROLE_ADMIN" && <button disabled={user.contracts.length>0 } className="btn btn-sm btn-danger" onClick={() => setSup(true)} >supprimer</button>}
+                    {role=="ROLE_ADMIN" && <button disabled={user.contracts.length>0 || user.cras.length>0} className="btn btn-sm btn-danger" onClick={() => setSup(true)} >supprimer</button>}
                    
                     </td>
                     

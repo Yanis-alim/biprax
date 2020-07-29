@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import UsersAPI from '../services/UsersAPI';
-
+import { toast } from 'react-toastify';
  
 
 
@@ -12,12 +12,13 @@ const Modal = ({user}) => {
   const handleDelete = async user =>{
    
     try{
-        console.log(user.fName);
+       
         const data=await UsersAPI.delete(user.id);
-        console.log(data);
+        
         toast.info("Le compte est supprimer");
 
     }catch(error){
+      toast.warning("l'utilisateur n'est pas supprimer il'a  des rapports au missions ")
         console.log(error.response);
         
 
