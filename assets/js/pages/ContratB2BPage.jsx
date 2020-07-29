@@ -3,11 +3,19 @@ import ContrartB2BAPI from "../services/ContrartB2BAPI";
 import moment from "moment";
 import TableLoader from '../components/loaders/TableLoader';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 const ContratB2BPage = (props) => {
     const [contrats,setContrats]=useState([]);
     const [loading,setLoading]=useState(true);
+    const [sup,setSup] =useState(false);
+    const [util,setUtil]=useState([]);
+    const supr = (contrat)=>{
+        setSup(true);
+        setUtil(contrat);
+  
+    }
 
      //recuperation des contrats
      const fetchContracts = async ()=>{
@@ -33,10 +41,13 @@ const ContratB2BPage = (props) => {
         setContrats(contrats.filter(contrat => contrat.id !== id));
         try{
             await ContrartB2BAPI.delete(id);
+            setSup(false);
+            toast.success("contrat supprimer");
  
         }catch(error){
             console.log(error.response);
             setContrats(originalecontrat);
+            toast.success("echec de la supprission");
  
         }
  
@@ -80,12 +91,31 @@ const ContratB2BPage = (props) => {
                  <td>{contrat.contactPerson}</td>
                  <td>{contrat.signataire}</td>
                  <td>{contrat.type}</td>
-                 <td><button className="btn btn-sm btn-danger" onClick={() => handleDelete(contrat.id)}>Supprimer</button></td>
+                 <td><button className="btn btn-sm btn-danger" onClick={() => supr(contrat)}>Supprimer</button></td>
              </tr>)}
          </tbody>
 
 
     </table>}
+    { sup==true && <div className="modal" tabIndex="-1" role="dialog">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">Suppression</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => setSup(false)}>
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+             <p>voulez vous supprimer le contrat B2B: "{util.Ref}" entre {util.customer.customer} et {util.society.nom}</p>
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-danger" onClick={() => handleDelete(util.id) }>Supprimer</button>
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => setSup(false) }>Fermer</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>}
     {loading && <TableLoader/>}
     </div>
     </> );

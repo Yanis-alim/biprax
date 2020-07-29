@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import  AuthAPI from "../services/AuthAPI";
 import jwt_decode from 'jwt-decode';
 import UsersAPI from "../services/UsersAPI";
+import { toast } from 'react-toastify';
 
 
 
@@ -17,6 +18,13 @@ const ApplicationsPage = (props) => {
 
 
     const [applications ,setApplications] = useState([]);
+    const [sup,setSup] =useState(false);
+    const [util,setUtil]=useState([]);
+    const supr = (apli)=>{
+      setSup(true);
+      setUtil(apli);
+
+  }
 
     // permet d'aller récupérer les condidateurs
    const fetchApplications= async () => {
@@ -56,14 +64,17 @@ const ApplicationsPage = (props) => {
         const originaleApplications = [...applications];
       
         setApplications(applications.filter(application =>application.id !==id));
+
       
         try{
-         await ApplicationsAPI.delete(id)
+         await ApplicationsAPI.delete(id);
+         setSup(false);
+         toast.success("candidateur supprimer");
       
         }
         catch(error){
           setApplications(originaleApplications);
-           
+           toast.warning("echec de la supprission");
       
         }
       
@@ -115,7 +126,7 @@ const ApplicationsPage = (props) => {
                 <td>{application.dateOfIssus}</td>
                 {role=="ROLE_ADMIN" && <td>
           <button 
-           onClick={() =>handleDelete(application.id)}
+           onClick={() =>supr(application)}
           className="btn btn-sm btn-danger"> Supprimer</button>
         </td>}
             </tr>)}
@@ -123,6 +134,25 @@ const ApplicationsPage = (props) => {
 
 
     </table>
+    { sup==true && <div className="modal" tabIndex="-1" role="dialog">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">Suppression</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => setSup(false)}>
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+                                      <p>voulez vous supprimer la candidateur de : {util.fName} {util.lName}</p>
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-danger" onClick={() => handleDelete(util.id) }>Supprimer</button>
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => setSup(false) }>Fermer</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>}
     </div>
     
     </> );
