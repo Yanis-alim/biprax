@@ -5,11 +5,14 @@ import UsersAPI from "../services/UsersAPI";
 import  AuthAPI from "../services/AuthAPI";
 import jwt_decode from 'jwt-decode';
 import { toast } from 'react-toastify';
+import moment from "moment";
 
 
 const AbsencesPage = (props) => {
     const [absenses ,setAbsenses] = useState([]);
     const [role ,setRole] = useState([]);
+    const [sup,setSup] =useState(false);
+    const [util,setUtil]=useState([]);
 
     const fetchAbsences= async () => {
         try{
@@ -50,15 +53,22 @@ const AbsencesPage = (props) => {
             try{
                 await AbsencesAPI.delete(id);
                 toast.info("La demande est supprimer");
+                setSup(false);
      
             }catch(error){
                 console.log(error.response);
                 setAbsenses(originaleAbsences);
+
      
             }
      
         };
-
+        const supr = (absence)=>{
+            setSup(true);
+            setUtil(absence);
+      
+        }
+        const formatDate = (str) => moment (str).format('DD/MM/YYYY');
     return ( <>
     <section className="main-image">
       
@@ -84,6 +94,7 @@ const AbsencesPage = (props) => {
         <table className="table table-hover">
            <thead>
                <tr>
+                   <th>nom </th>
                    <th>Type</th>
                    <th>Date de debut</th>
                    <th>Date de fin</th>
@@ -95,9 +106,10 @@ const AbsencesPage = (props) => {
            </thead>
            <tbody>
                {absenses.map(absense => <tr key={absense.id}>
+                   <td> {absense.user.lName}  {absense.user.fName}   </td>
                    <td>{absense.type}</td>
-                   <td>{absense.startDate}</td>
-                   <td>{absense.endDate}</td>
+                   <td>{formatDate(absense.startDate)}</td>
+                   <td>{formatDate(absense.endDate)}</td>
                    <td>{absense.description}</td>
                    {absense.etat=="encour" && <td className="text-warning">encour</td>}
                    {absense.etat=="valider" && <td className="text-success">validé</td>}
@@ -105,7 +117,7 @@ const AbsencesPage = (props) => {
                   
                   <td>
               <button  disabled={role !="ROLE_ADMIN" && absense.etat !="encour"  }
-                        onClick={() =>handleDelete(absense.id)}
+                        onClick={() =>supr(absense)}
                         className="btn btn-sm btn-danger"> Supprimer</button>
             </td>
             {<td><Link to={"/absences/"+absense.id}  className="btn btn-sm btn-primary "><button  disabled={role !="ROLE_ADMIN" && absense.etat !="encour"  } className="btn btn-sm btn-primary" >Editer</button></Link></td>}
@@ -114,6 +126,25 @@ const AbsencesPage = (props) => {
            </tbody>
 
         </table>
+        { sup==true && <div className="modal" tabIndex="-1" role="dialog">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">Suppression</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => setSup(false)}>
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+                                      <p>voulez vous supprimer l'absence: {util.user.fName} {util.user.lName}</p>
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-danger" onClick={() => handleDelete(util.id) }>Supprimer</button>
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => setSup(false) }>Fermer</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>}
     
     </div>
     

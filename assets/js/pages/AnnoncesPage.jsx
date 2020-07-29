@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import  AuthAPI from "../services/AuthAPI";
 import jwt_decode from 'jwt-decode';
 import moment from "moment";
+import { toast } from 'react-toastify';
 
 
 
@@ -16,6 +17,8 @@ const AnnoncesPage = ({isAuthenticated}) => {
     const [annonces ,setAnnonces] = useState([]);
     const [currentPage, setCurrentPage]=useState(1);
     const [loading,setLoading]=useState(true);
+    const [sup,setSup] =useState(false);
+    const [util,setUtil]=useState([]);
    
   
   
@@ -61,7 +64,9 @@ const AnnoncesPage = ({isAuthenticated}) => {
         setAnnonces(annonces.filter(annonce =>annonce.id !==id));
 
         try{
-         await AnnoncesAPI.delete(id)
+         await AnnoncesAPI.delete(id);
+         toast.success("l'annonce est supprimer")
+         setSup(false);
 
         }
         catch(error){
@@ -71,6 +76,11 @@ const AnnoncesPage = ({isAuthenticated}) => {
         }
       
     };
+    const supr = (annonce)=>{
+      setSup(true);
+      setUtil(annonce);
+
+  }
 
    //Gestion du changement de page 
    const handleChangePage =(page)=>{
@@ -105,7 +115,7 @@ const AnnoncesPage = ({isAuthenticated}) => {
     
     <div className="mb-3 d-flex justify-content-between align-items-center">
        <h1>Liste des Annonces</h1>
-       {isAuthenticated && <div>  {role=="ROLE_ADMIN" &&  <Link to ="/annonces/new" className="btn btn-primary">Ajoutée une annonce</Link>}</div>}
+         {role=="ROLE_ADMIN" &&  <Link to ="/annonces/new" className="btn btn-primary">Ajoutée une annonce</Link>}
 
        </div>
     <table className="table table-hover">
@@ -132,11 +142,11 @@ const AnnoncesPage = ({isAuthenticated}) => {
         <td>{annonce.city}</td>
         <td className="text-center">{annonce.salary.toLocaleString()}€</td>
         <td>{formatDate(annonce.dateOfIssue)}</td>
-        {isAuthenticated && <div> {role=="ROLE_ADMIN" && <td>
+        {( role=="ROLE_ADMIN") && <td>
           <button 
-           onClick={() =>handleDelete(annonce.id)}
+           onClick={() =>supr(annonce)}
           className="btn btn-sm btn-danger"> Supprimer</button>
-        </td>}</div>}
+        </td>}
         
 
       </tr>))}
@@ -146,6 +156,25 @@ const AnnoncesPage = ({isAuthenticated}) => {
     
     
     </table>
+    { sup==true && <div className="modal" tabIndex="-1" role="dialog">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">Suppression</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => setSup(false)}>
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+                                      <p>voulez vous supprimer l'annonce: {util.title}</p>
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-danger" onClick={() => handleDelete(util.id) }>Supprimer</button>
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => setSup(false) }>Fermer</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>}
     {loading && <TableLoader/>}
 
     <Pagination currentPage={currentPage} itemPerPage={itemPerPage} length={annonces.length} onePageChange={handleChangePage}/>

@@ -5,10 +5,16 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\AbsenceRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=AbsenceRepository::class)
- * @ApiResource
+ *  @ApiResource(
+ *     normalizationContext={ 
+ *       "groups"={"ab_read"} 
+ *    }
+ * 
+ * )
  */
 class Absence
 {
@@ -16,37 +22,44 @@ class Absence
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     *  @Groups({"ab_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
+     *   @Groups({"ab_read"})
      */
     private $etat;
 
     /**
      * @ORM\Column(type="datetime")
+     *   @Groups({"ab_read"})
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="datetime")
+     *   @Groups({"ab_read"})
      */
     private $endDate;
 
     /**
      * @ORM\Column(type="string", length=150)
+     *   @Groups({"ab_read"})
      */
     private $type;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *   @Groups({"ab_read"})
      */
     private $discription;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="absences")
      * @ORM\JoinColumn(nullable=false)
+     *   @Groups({"ab_read"})
      */
     private $user;
 

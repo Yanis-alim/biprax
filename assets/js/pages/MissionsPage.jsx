@@ -18,6 +18,8 @@ const MissionPage = (props) => {
    
     const [currentPage, setCurrentPage]=useState(1);
     const [loading,setLoading]=useState(true);
+    const[consult,setConsult]=useState(false);
+    const [util,setUtil]=useState([]);
 
   
     //recuperation des raports 
@@ -39,7 +41,11 @@ const MissionPage = (props) => {
  
      },[]);
      
- 
+     const consulet = (raport)=>{
+        setConsult(true);
+        setUtil(raport);
+  
+    }
  
        //Gestion du changement de page 
     const handleChangePage =(page)=>{
@@ -83,7 +89,7 @@ const MissionPage = (props) => {
             <tr>
                 <th>Référence Mission</th>
                 <th>titre</th>
-                <th>client</th>
+                
                 <th>Date de debut </th>
                 <th>Date de fin</th>
                 <th></th>
@@ -95,11 +101,12 @@ const MissionPage = (props) => {
             <tr key={mission.id}>
                 <td>{mission.id}</td>
                 <td>{mission.title}</td>
-                <td>{mission.customer.customer}</td>
+                
                 <td>{formatDate(mission.startDate)}</td>
                 <td>{formatDate(mission.endDate)}</td>
                 <td><button disabled={mission.raports.length > 0} className="btn btn-sm btn-danger" onClick={() =>handleDelete(mission.id)}>supprimer</button></td>
-                <td><button  className="btn btn-sm btn-primary">consulter</button></td>
+                <td><button  className="btn btn-sm btn-primary" onClick={() =>consulet(mission)}>consulter</button></td>
+
             </tr>)}
         </tbody>}
 
@@ -107,6 +114,31 @@ const MissionPage = (props) => {
 
     
     </table>
+    { consult==true && <div className="modal" tabIndex="-1" role="dialog">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">{util.title}</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => setConsult(false)}>
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+                                      <h4>Mission : {util.title}</h4>
+                                      
+                                      <p>Date de debut : {formatDate(util.startDate)} </p>
+                                      <p>Date de fin  : {formatDate(util.endDate)}</p>
+                                      <p>Discription : {util.discription}</p>
+                                      <p>liste des intervenants : </p>
+                                      {util.user.map(use =><p key={use.id}> - {use.lName} {use.fName}</p>)}
+                                </div>
+                                <div className="modal-footer">
+                                  
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => setConsult(false) }>Fermer</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>}
     {loading && <TableLoader/>}
     <Pagination currentPage={currentPage} itemPerPage={itemPerPage} onePageChange={handleChangePage} length={missions.length} />
     </div>

@@ -5,7 +5,7 @@ import TableLoader from '../components/loaders/TableLoader';
 import { toast } from 'react-toastify';
 import  AuthAPI from "../services/AuthAPI";
 import jwt_decode from 'jwt-decode';
-import Modal from '../components/Modal';
+
 
 
 
@@ -16,6 +16,7 @@ const UsersPage = ({history}) => {
     const [users,setUsers]=useState([]);
     const [loading,setLoading]=useState(true);
     const [sup,setSup] =useState(false);
+    const [util,setUtil]=useState([]);
     const fatchUser = async () =>{
         try{
         const data =await UsersAPI.findAll();
@@ -47,23 +48,29 @@ const UsersPage = ({history}) => {
       getRole();
       },[]);
     
-      const popup = async id =>{
-          setSup(true);
-      }
+      const supr = (user)=>{
+        setSup(true);
+        setUtil(user);
+  
+    }
     const handleDelete = async id =>{
         const originaleUsers =[...users];
         setUsers(users.filter(user => user.id !== id));
         try{
-            setSup(true);
+            
+
            
              
             await UsersAPI.delete(id);
             
             toast.info("Le compte est supprimer");
+            setSup(false);
  
         }catch(error){
+            toast.warning("l'utilisateur n'est pas supprimer il'a  des rapports ou missions de l'utilisateur ");
             console.log(error.response);
             setUsers(originaleUsers);
+            setSup(false);
  
         }
  
@@ -102,11 +109,29 @@ const UsersPage = ({history}) => {
                     <td>{user.city}</td>
                     <td>{user.zipCode}</td>
                     <td>
-                    {role=="ROLE_ADMIN" && <button disabled={user.contracts.length>0 || user.cras.length>0} className="btn btn-sm btn-danger" onClick={() => setSup(true)} >supprimer</button>}
+                    {role=="ROLE_ADMIN" && <button disabled={user.contracts.length>0 || user.cras.length>0} className="btn btn-sm btn-danger" onClick={() => supr(user)} >supprimer</button>}
                    
                     </td>
                     
-                    <td> {sup==true &&<Modal user={user}/>}</td>
+                    <td>  { sup==true && <div className="modal" tabIndex="-1" role="dialog">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">Suppression</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => setSup(false)}>
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+                                      <p>voulez vous supprimer cette utilisateur: {util.fName} {util.lName}</p>
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-danger" onClick={() => handleDelete(util.id) }>Supprimer</button>
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => setSup(false) }>Fermer</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>}</td>
                 </tr> 
                 
                 )}
@@ -115,7 +140,7 @@ const UsersPage = ({history}) => {
         
 
     </table>
-    
+  
     {loading && <TableLoader/>}
     </div>
     </> );

@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import  AuthAPI from "../services/AuthAPI";
 import jwt_decode from 'jwt-decode';
 import UsersAPI from "../services/UsersAPI";
+import { toast } from 'react-toastify';
 
 
 
@@ -17,6 +18,8 @@ const ActualitesPage = (isAuthenticated) => {
   const [actualites ,setActualites]=useState([]);
   const [currentPage, setCurrentPage]=useState(1);
   const [loading,setLoading]=useState(true);
+  const [sup,setSup] =useState(false);
+    const [util,setUtil]=useState([]);
 
    //recuperation des Actualites 
    const fetchActualites = async ()=>{
@@ -63,8 +66,12 @@ const handleDelete = async id =>{
 
   setActualites(actualites.filter(actualite =>actualite.id !==id));
 
+
   try{
-   await ActualitesAPI.delete(id)
+
+   await ActualitesAPI.delete(id);
+   toast.success("l'actualité est supprimer");
+   setSup(false);
 
   }
   catch(error){
@@ -74,7 +81,11 @@ const handleDelete = async id =>{
   }
 
 };
+const supr = (actu)=>{
+  setSup(true);
+  setUtil(actu);
 
+}
 
 // nombre d'elements par page 
 const itemPerPage =4;
@@ -104,7 +115,7 @@ return ( <>
   {!loading &&  <div className="container pt-5">
   <div className="mb-3 d-flex justify-content-between align-items-center">
        <h1>LISTE DES ACTUALITÉS</h1>
-       {!isAuthenticated && <div>  {role=="ROLE_ADMIN" &&  <Link to ="/actualites/new" className="btn btn-primary">ajoutée une actualité</Link>}</div>}
+         {role=="ROLE_ADMIN" &&  <Link to ="/actualites/new" className="btn btn-primary">ajoutée une actualité</Link>}
 </div>
 
 {paginatedActualites.map( actualite => <div key={actualite.id} className="actu">
@@ -116,18 +127,37 @@ return ( <>
   <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22318%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20318%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_158bd1d28ef%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A16pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_158bd1d28ef%22%3E%3Crect%20width%3D%22318%22%20height%3D%22180%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22129.359375%22%20y%3D%2297.35%22%3EImage%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Card image"></img>
   <div className="card-body">
     <p className="card-text">{actualite.discription}</p>
-    {!isAuthenticated &&<div>  {role=="ROLE_ADMIN" && 
+      {role=="ROLE_ADMIN" && 
           <button 
-           onClick={() =>handleDelete(actualite.id)}
+           onClick={() =>supr(actualite)}
           className="btn btn-sm btn-danger"> Supprimer</button>
         }
-  </div>}
+  
   </div>
 
   </div>)}
 
   <Pagination currentPage={currentPage} itemPerPage={itemPerPage} onePageChange={handleChangePage} length={actualites.length} />
 </div>}
+{ sup==true && <div className="modal" tabIndex="-1" role="dialog">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">Suppression</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => setSup(false)}>
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+                                      <p>voulez vous l'actualité : {util.title} </p>
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-danger" onClick={() => handleDelete(util.id) }>Supprimer</button>
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => setSup(false) }>Fermer</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>}
 {loading && <TableLoader/>}
 </>
 );

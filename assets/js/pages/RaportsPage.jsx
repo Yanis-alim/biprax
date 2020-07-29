@@ -13,6 +13,8 @@ const RaportsPage = (isAuthenticated) => {
     const [raports ,setRaports]=useState([]);
     const [currentPage, setCurrentPage]=useState(1);
     const [loading,setLoading]=useState(true);
+    const[consult,setConsult]=useState(false);
+    const [util,setUtil]=useState([]);
 
   
    //recuperation des raports 
@@ -40,6 +42,13 @@ const RaportsPage = (isAuthenticated) => {
       //Gestion du changement de page 
    const handleChangePage =(page)=>{
     setCurrentPage(page);
+  }
+
+
+  const consulet = (raport)=>{
+      setConsult(true);
+      setUtil(raport);
+
   }
   // gestion de la supperission
    const handleDelete = async id =>{
@@ -99,12 +108,40 @@ const RaportsPage = (isAuthenticated) => {
              <td>{raport.title}</td>
              <td>{formatDate(raport.dateOfIssue)}</td>
              <td>{raport.note}</td>
-             {!isAuthenticated && <td>
+             <td>
                  <button className="btn btn-sm btn-danger" onClick={() => handleDelete(raport.id)}>Supprimer</button>
-             </td>}
-             <td><button className="btn btn-sm btn-primary">consulter</button></td>
+             </td>
+             <td><button className="btn btn-sm btn-primary" onClick={() =>consulet(raport)}>consulter</button></td>
               <td>
                   <Link to={"/raports/"+raport.id} className="btn btn-sm btn-primary ">Editer</Link>
+              </td>
+              <td>
+              { consult==true && <div className="modal" tabIndex="-1" role="dialog">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">{util.title}</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => setConsult(false)}>
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+                                      <h4>Rapport : {util.title}</h4>
+                                      <p>Mission : {util.mission.title}</p>
+                                      <p>Auteur : {util.user.fName} {util.user.lName}</p>
+                                      <p>Date : {formatDate(util.dateOfIssue)}</p>
+                                      <p>Remarque : {util.note}</p>
+                                      <p>Discription : {util.discription}</p>
+                                </div>
+                                <div className="modal-footer">
+                                  
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => setConsult(false) }>Fermer</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>}
+
+
               </td>
              
          </tr>)}
