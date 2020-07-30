@@ -1,6 +1,7 @@
 import React,{useEffect,useState} from 'react';
 import TableLoader from '../components/loaders/TableLoader';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 import TypeContratAPI from "../services/TypeContratApi";
@@ -8,6 +9,14 @@ const TypeContractPage = (props) => {
 
     const [contrats ,setContrats]=useState([]);
     const [loading,setLoading]=useState(true);
+    const [sup,setSup] =useState(false);
+    const [util,setUtil]=useState([]);
+   
+    const supr = (poste)=>{
+        setSup(true);
+        setUtil(poste);
+  
+    }
 
     //recuperation des raports 
     const fetchtype = async ()=>{
@@ -37,13 +46,15 @@ const TypeContractPage = (props) => {
         setContrats(contrats.filter(contrat =>contrat.id !==id));
 
         try{
-         await TypeContratAPI.delete(id)
+         await TypeContratAPI.delete(id);
+         toast.success("type de contart supprimer");
+         setSup(false);
 
         }
         catch(error){
             setContrats(originaleType);
             console.log(error.response);
-           
+           toast.warning("echec de la supprission");
 
         }
       
@@ -72,7 +83,7 @@ const TypeContractPage = (props) => {
                 <td>{contrat.id}</td>
                 <td>{contrat.type}</td>
                <td> <button 
-           onClick={() =>handleDelete(contrat.id)}
+           onClick={() =>supr(contrat)}
           className="btn btn-sm btn-danger" disabled={contrat.contract.length>0 }> Supprimer</button>
         </td>
             </tr>)}
@@ -80,7 +91,27 @@ const TypeContractPage = (props) => {
 
 
     </table>}
+    { sup==true && <div className="modal" tabIndex="-1" role="dialog">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">Suppression</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => setSup(false)}>
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+             <p>voulez vous supprimer ce type de contrat  : {util.type}</p>
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-danger" onClick={() => handleDelete(util.id) }>Supprimer</button>
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => setSup(false) }>Fermer</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>}
     {loading && <TableLoader/>}
+
 
     </div>
     

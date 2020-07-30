@@ -18,6 +18,7 @@ const HomePage = (props) => {
               <h3 className="titel">Le futur a été créé pour être changé, le futur est entre vos mains </h3>
           
   </div>
+  
   <div className="alaune">
    
     <Link to="/actualites" aria-pressed="true" className="btn btn-secondary btn-lg  ">  Â la une</Link>
@@ -28,8 +29,9 @@ const HomePage = (props) => {
   </div>
 
   </section>
+  <div className="container pt-5">
   <div>
-  <section className="valeur hov " >
+  <section className="valeur" >
     
      <div className="valeurT">
     <h2> Nos Valeurs  </h2>
@@ -43,14 +45,18 @@ const HomePage = (props) => {
                     
                         <h4 className="titrev">Etude préalable technique et fonctionnelle.</h4>
                         <p>Afin de vous proposer les meilleures solutions, nous analysons au préalable votre demande.</p> 
-                        <svg width="5em" height="5em" viewBox="0 0 16 16" className="bi bi-laptop" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path fillRule="evenodd" d="M13.5 3h-11a.5.5 0 0 0-.5.5V11h12V3.5a.5.5 0 0 0-.5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2h-11z"/>
-  <path d="M0 12h16v.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5V12z"/>
+                        <svg width="5em" height="5em" viewBox="0 0 16 16" className="bi bi-book-fill log" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path d="M15.261 13.666c.345.14.739-.105.739-.477V2.5a.472.472 0 0 0-.277-.437c-1.126-.503-5.42-2.19-7.723.129C5.696-.125 1.403 1.56.277 2.063A.472.472 0 0 0 0 2.502V13.19c0 .372.394.618.739.477C2.738 12.852 6.125 12.113 8 14c1.875-1.887 5.262-1.148 7.261-.334z"/>
 </svg>
+                        
                     </div>
                     <div className="col-md-6">
                         <h4>Accompagnement dans le choix de la solution et la réalisation.</h4>
                         <p>Lorsque vous voulez lancer votre projet, nous vous accompagnons sur toutes vos problématiques.</p>
+                        <svg width="5em" height="5em" viewBox="0 0 16 16" className="bi bi-easel log" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path d="M8.473.337a.5.5 0 0 0-.946 0L6.954 2h2.092L8.473.337zM12.15 11h-1.058l1.435 4.163a.5.5 0 0 0 .946-.326L12.15 11zM8.5 11h-1v2.5a.5.5 0 0 0 1 0V11zm-3.592 0H3.85l-1.323 3.837a.5.5 0 1 0 .946.326L4.908 11z"/>
+  <path fill-rule="evenodd" d="M14 3H2v7h12V3zM2 2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"/>
+</svg>
                     </div>
             </div>
           
@@ -58,10 +64,18 @@ const HomePage = (props) => {
                     <div className="col-md-6">
                         <h4>Intégration des solutions et développements spécifiques.</h4>
                         <p>Nous vous assurons une maîtrise parfaite des pratiques et technologies de développement.</p>
+                        <svg width="5em" height="5em" viewBox="0 0 16 16" className="bi bi-laptop log" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fillRule="evenodd" d="M13.5 3h-11a.5.5 0 0 0-.5.5V11h12V3.5a.5.5 0 0 0-.5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2h-11z"/>
+  <path d="M0 12h16v.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5V12z"/>
+</svg>
                     </div>
                     <div className=" col-md-6">
                         <h4>Recette fonctionnelle et technique /Transfert de compétences</h4>
                         <p>Nous vous proposons une solution adaptée à vos besoins avec une recette alliant les compétences fonctionnelles et techniques.</p>
+                        <svg width="5em" height="5em" viewBox="0 0 16 16" className="bi bi-diagram-3-fill log" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M8 5a.5.5 0 0 1 .5.5V7H14a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 2 7h5.5V5.5A.5.5 0 0 1 8 5zm-8 6.5A1.5 1.5 0 0 1 1.5 10h1A1.5 1.5 0 0 1 4 11.5v1A1.5 1.5 0 0 1 2.5 14h-1A1.5 1.5 0 0 1 0 12.5v-1zm6 0A1.5 1.5 0 0 1 7.5 10h1a1.5 1.5 0 0 1 1.5 1.5v1A1.5 1.5 0 0 1 8.5 14h-1A1.5 1.5 0 0 1 6 12.5v-1zm6 0a1.5 1.5 0 0 1 1.5-1.5h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5v-1z"/>
+  <path fill-rule="evenodd" d="M6 3.5A1.5 1.5 0 0 1 7.5 2h1A1.5 1.5 0 0 1 10 3.5v1A1.5 1.5 0 0 1 8.5 6h-1A1.5 1.5 0 0 1 6 4.5v-1z"/>
+</svg>
                     </div>
             </div>  
         
@@ -71,7 +85,7 @@ const HomePage = (props) => {
 
   </section>
 </div>
-<section className="mission  hov">
+<section className="mission">
    <div className="valeurT">
   <h2> Nos Missions</h2>
   </div>
@@ -99,7 +113,7 @@ const HomePage = (props) => {
  <div></div>
 <section className="client"></section>
 
-<section className="contacter hov ">
+<section className="contacter">
 
         
         <h2> NOUS CONTACTER </h2>
@@ -146,7 +160,7 @@ const HomePage = (props) => {
 
 </div>
   
-
+</div>
  </>  );
 }
 

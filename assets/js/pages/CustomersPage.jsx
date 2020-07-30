@@ -3,10 +3,18 @@ import CustomersAPI from "../services/CustomersAPI";
 import Pagination from '../components/Pagination';
 import TableLoader from '../components/loaders/TableLoader';
 import {Link} from "react-router-dom";
+import { toast } from 'react-toastify';
 const CustomersPage = (props) => {
     const [custmers ,setCustomers]=useState([]);
     const [currentPage, setCurrentPage]=useState(1);
     const [loading,setLoading]=useState(true);
+    const [sup,setSup] =useState(false);
+    const [util,setUtil]=useState([]);
+    const supr = (client)=>{
+        setSup(true);
+        setUtil(client);
+  
+    }
 
 
     const fetchCustomers = async ()=>{
@@ -34,11 +42,14 @@ const CustomersPage = (props) => {
     setCustomers(custmers.filter(custmer => custmer.id !== id));
     try{
         await CustomersAPI.delete(id);
+        setSup(false);
+        toast.success("Client supprimer");
+
 
     }catch(error){
         console.log(error.response);
         setCustomers(originaleCustomers);
-
+        toast.warning("echec de la supprission ex:il se peut que le client a toujours des missions attribuees");
     }
 
 };
@@ -95,13 +106,32 @@ const CustomersPage = (props) => {
             <td>{customer.effectif}</td>
             <td>{customer.siege}</td>
             <td> 
-                <button className="btn btn-sm btn-danger" onClick={() => handleDelete(customer.id)}>Supprimer</button>
+                <button disabled={customer.contractB2Bs.length>0} className="btn btn-sm btn-danger" onClick={() => supr(customer)}>Supprimer</button>
             </td>
         </tr>)}
     </tbody>
 
 
     </table>}
+    { sup==true && <div className="modal" tabIndex="-1" role="dialog">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">Suppression</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => setSup(false)}>
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+             <p>voulez vous supprimer le client : {util.customer}</p>
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-danger" onClick={() => handleDelete(util.id) }>Supprimer</button>
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => setSup(false) }>Fermer</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>}
     {loading && <TableLoader/>}
     <Pagination currentPage={currentPage} itemPerPage={itemPerPage} onePageChange={handleChangePage} length={custmers.length} />
     </div>

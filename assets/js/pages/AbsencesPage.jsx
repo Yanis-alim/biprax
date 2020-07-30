@@ -101,6 +101,7 @@ const AbsencesPage = (props) => {
                    <th>Description</th>
                    <th> Etat</th>
                    <th></th>
+                   <th></th>
                 
                </tr>
            </thead>
@@ -111,16 +112,16 @@ const AbsencesPage = (props) => {
                    <td>{formatDate(absense.startDate)}</td>
                    <td>{formatDate(absense.endDate)}</td>
                    <td>{absense.description}</td>
-                   {absense.etat=="encour" && <td className="text-warning">encour</td>}
+                   {absense.etat=="en cours de traitement" && <td className="text-warning">en cours de traitement</td>}
                    {absense.etat=="valider" && <td className="text-success">validé</td>}
                    {absense.etat=="refuser" && <td className="text-danger">refusé</td>}
                   
                   <td>
-              <button  disabled={role !="ROLE_ADMIN" && absense.etat !="encour"  }
+              <button  disabled={role !="ROLE_ADMIN" && absense.etat !="en cours de traitement"  }
                         onClick={() =>supr(absense)}
                         className="btn btn-sm btn-danger"> Supprimer</button>
             </td>
-            {<td><Link to={"/absences/"+absense.id}  className="btn btn-sm btn-primary "><button  disabled={role !="ROLE_ADMIN" && absense.etat !="encour"  } className="btn btn-sm btn-primary" >Editer</button></Link></td>}
+            {<td><Link to={"/absences/"+absense.id}  className="btn btn-sm btn-primary "><button  disabled={role !="ROLE_ADMIN" && absense.etat !="en cours de traitement"  } className="btn btn-sm btn-primary" >Editer</button></Link></td>}
                    
                </tr>)}
            </tbody>

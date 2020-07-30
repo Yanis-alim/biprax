@@ -116,10 +116,6 @@ h1{
 }
 
 
-.valeur{
-    margin: 0 100px;
-    padding: 25px;
-}
 
 
 .logo{
@@ -219,7 +215,7 @@ h1{
 }
 .contacter{
     text-align: center;
-    padding: 50px 50px;
+    padding: 0px 50px;
     margin-top: 50px;
 }
 .contacter h2{
@@ -271,12 +267,7 @@ footer{
 .labarre li{
     font-size: 80%;
 }
-.navfix{
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-}
+
 .btt{
     margin: 5px;
 }
@@ -287,4 +278,12 @@ footer{
     padding: 25px;
     border: solid 1px;
     border-radius: 30px;
+}
+
+.log{
+    padding: 10px;
+}
+.fot{
+    position: relative;
+    margin-bottom: 0;
 }

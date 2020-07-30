@@ -117,7 +117,7 @@ const MissionPage = ({history}) => {
             <button type="submit" className="btn btn-success">
                 envoyer
                 </button>
-                <Link to="/missions" className="btn btn-link"> Retour aux raports</Link>
+                <Link to="/missions" className="btn btn-link"> Retour aux missions</Link>
         </div>
          
      </form>

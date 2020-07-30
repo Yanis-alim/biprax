@@ -129,24 +129,33 @@ const AnnoncesPage = ({isAuthenticated}) => {
         <th>ville</th>
         <th>salaire</th>
         <th>date</th>
+        {( role=="ROLE_ADMIN") &&<td>flag</td>}
+        <td></td>
 
 
         </tr>
     </thead>
     {!loading && <tbody>
-        {paginatedAnnonces.map(annonce =>(<tr key={annonce.id}>
-        <td className="text-center">{annonce.id}</td>
-        <td>{annonce.title}</td>
-        <td>{annonce.type} </td>
-        <td>{annonce.profile}</td>
-        <td>{annonce.city}</td>
-        <td className="text-center">{annonce.salary.toLocaleString()}€</td>
-        <td>{formatDate(annonce.dateOfIssue)}</td>
+        {paginatedAnnonces.map(annonce =>(
+        
+        <tr key={annonce.id}>
+        {( role=="ROLE_ADMIN" || annonce.flag==1) &&<td className="text-center">{annonce.id}</td>}
+        {( role=="ROLE_ADMIN" || annonce.flag==1)&&<td>{annonce.title}</td> }
+       {( role=="ROLE_ADMIN" || annonce.flag==1) && <td>{annonce.type} </td>}
+       {( role=="ROLE_ADMIN" || annonce.flag==1) && <td>{annonce.profile}</td>}
+       {( role=="ROLE_ADMIN" || annonce.flag==1) &&<td>{annonce.city}</td>}
+       {( role=="ROLE_ADMIN" || annonce.flag==1) && <td className="text-center">{annonce.salary.toLocaleString()}€</td>}
+       {( role=="ROLE_ADMIN" || annonce.flag==1) && <td>{formatDate(annonce.dateOfIssue)}</td>}
+        {( role=="ROLE_ADMIN" ) &&<td>{(annonce.flag==1)&&<div>vrai</div>||<div>faut</div>}</td>}
+
         {( role=="ROLE_ADMIN") && <td>
           <button 
            onClick={() =>supr(annonce)}
           className="btn btn-sm btn-danger"> Supprimer</button>
         </td>}
+        {( role=="ROLE_ADMIN") &&<td>
+                  <Link to={"/annonces/"+annonce.id} className="btn btn-sm btn-primary ">Editer</Link>
+              </td>}
         
 
       </tr>))}

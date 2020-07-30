@@ -7,6 +7,7 @@ import RaportsAPI from "../services/RaportsAPI";
 import {Link} from "react-router-dom";
 import TableLoader from '../components/loaders/TableLoader';
 import AuthAPI from '../services/AuthAPI'
+import { toast } from 'react-toastify';
 
 
 const RaportsPage = (isAuthenticated) => {
@@ -15,6 +16,14 @@ const RaportsPage = (isAuthenticated) => {
     const [loading,setLoading]=useState(true);
     const[consult,setConsult]=useState(false);
     const [util,setUtil]=useState([]);
+    const [sup,setSup] =useState(false);
+    
+   
+    const supr = (poste)=>{
+        setSup(true);
+        setUtil(poste);
+  
+    }
 
   
    //recuperation des raports 
@@ -56,10 +65,13 @@ const RaportsPage = (isAuthenticated) => {
        setRaports(raports.filter(raport => raport.id !== id));
        try{
            await RaportsAPI.delete(id);
+           setSup(false);
+           toast.success("rapport supprimer")
 
        }catch(error){
            console.log(error.response);
            setRaports(originaleRaport);
+           toast.warning("echec de supprission");
 
        }
 
@@ -109,7 +121,7 @@ const RaportsPage = (isAuthenticated) => {
              <td>{formatDate(raport.dateOfIssue)}</td>
              <td>{raport.note}</td>
              <td>
-                 <button className="btn btn-sm btn-danger" onClick={() => handleDelete(raport.id)}>Supprimer</button>
+                 <button className="btn btn-sm btn-danger" onClick={() => supr(raport)}>Supprimer</button>
              </td>
              <td><button className="btn btn-sm btn-primary" onClick={() =>consulet(raport)}>consulter</button></td>
               <td>
@@ -148,6 +160,25 @@ const RaportsPage = (isAuthenticated) => {
            
         </tbody>}
         </table>
+        { sup==true && <div className="modal" tabIndex="-1" role="dialog">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">Suppression</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => setSup(false)}>
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+             <p>voulez vous supprimer le rapport : {util.title} de {util.user.fName} {util.user.lName}</p>
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-danger" onClick={() => handleDelete(util.id) }>Supprimer</button>
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => setSup(false) }>Fermer</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>}
         {loading && <TableLoader/>}
         <Pagination currentPage={currentPage} itemPerPage={itemPerPage} onePageChange={handleChangePage} length={raports.length} />
         </div>

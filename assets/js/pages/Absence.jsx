@@ -14,7 +14,7 @@ const Absence = ({history,match}) => {
     const [editing,setEditing]=useState(false);
     const [role ,setRole] = useState([]);
     const [absences,setAbsences]=useState({
-        etat:"encour",
+        etat:"en cours de traitement",
         discription:"",
         startDate:"",
        
@@ -135,7 +135,7 @@ const Absence = ({history,match}) => {
                             
                             
                         <option> Etat</option>
-                        <option value="encour">encour</option>
+                        <option value="en cours de traitement">en cours de traitement</option>
                         <option value="valider"> validé</option>
                         <option value="refuser"> refusé</option>
 

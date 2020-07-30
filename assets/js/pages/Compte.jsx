@@ -123,7 +123,7 @@ getRole();
         
         <div className="col-md-6">
             <ul className="list-group list-group-flush">
-            <li className="list-group-item"><Link to="/absences" className="btn btn-sm btn-primary ">Mes Absences</Link> </li>
+            <li className="list-group-item"><Link to="/absences" className="btn btn-sm btn-primary ">les Absences</Link> </li>
             <li className="list-group-item"> <Link to="/absence" className="btn btn-sm btn-primary ">Demander une Absence</Link></li>
             <li className="list-group-item"> <Link to="/raports" className="btn btn-sm btn-primary ">Mes rapports</Link></li>
             <li className="list-group-item"> <Link to="/raports/new" className="btn btn-sm btn-primary ">Ajouté un rapport</Link></li>

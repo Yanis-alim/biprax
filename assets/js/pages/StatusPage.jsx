@@ -1,11 +1,20 @@
 import React,{useEffect,useState} from 'react';
 import StatusAPI from "../services/StatusAPI";
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 
 const StatusPage = (props) => {
     const [statuses ,setStatuses]=useState([]);
+    const [sup,setSup] =useState(false);
+    const [util,setUtil]=useState([]);
+   
+    const supr = (poste)=>{
+        setSup(true);
+        setUtil(poste);
+  
+    }
 
 
 
@@ -34,10 +43,13 @@ const StatusPage = (props) => {
         setStatuses(statuses.filter(status => status.id !== id));
         try{
             await StatusAPI.delete(id);
+            toast.success("status supprimer");
+            setSup(false);
  
         }catch(error){
             console.log(error.response);
             setStatuses(originaleStatus);
+            toast.warning("echec de la supprission");
  
         }
  
@@ -65,7 +77,7 @@ const StatusPage = (props) => {
                 <td>{status.id}</td>
                 <td>{status.status}</td>
                 <td>
-                <button disabled={status.contracts.length>0 } className="btn btn-sm btn-danger" onClick={() => handleDelete(status.id)}>Supprimer</button>
+                <button disabled={status.contracts.length>0 } className="btn btn-sm btn-danger" onClick={() => supr(status)}>Supprimer</button>
                 </td>
             </tr>)}
         </tbody>
@@ -75,6 +87,25 @@ const StatusPage = (props) => {
 
 
     </table>
+    { sup==true && <div className="modal" tabIndex="-1" role="dialog">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">Suppression</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => setSup(false)}>
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+             <p>voulez vous supprimer ce status  : {util.status}</p>
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-danger" onClick={() => handleDelete(util.id) }>Supprimer</button>
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => setSup(false) }>Fermer</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>}
     
     
     </div>

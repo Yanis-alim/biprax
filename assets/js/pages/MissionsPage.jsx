@@ -5,6 +5,7 @@ import Pagination from '../components/Pagination';
 import moment from "moment";
 import MissionsAPI from "../services/MissionsAPI";
 import {Link} from "react-router-dom";
+import { toast } from 'react-toastify';
 
 import TableLoader from '../components/loaders/TableLoader';
 
@@ -19,10 +20,17 @@ const MissionPage = (props) => {
     const [currentPage, setCurrentPage]=useState(1);
     const [loading,setLoading]=useState(true);
     const[consult,setConsult]=useState(false);
+    const [sup,setSup] =useState(false);
     const [util,setUtil]=useState([]);
+   
+    const supr = (client)=>{
+        setSup(true);
+        setUtil(client);
+  
+    }
 
   
-    //recuperation des raports 
+    //recuperation des missions
      const fetchMissions = async ()=>{
          try{
              const data =await MissionsAPI.findAll();
@@ -57,10 +65,13 @@ const MissionPage = (props) => {
         setMissions(missions.filter(mission => mission.id !== id));
         try{
             await MissionsAPI.delete(id);
+            setSup(false);
+            toast.success("mission supprimer");
  
         }catch(error){
             console.log(error.response);
             setMissions(originaleRaport);
+            toast.warning("echec de la supprission");
  
         }
  
@@ -104,7 +115,7 @@ const MissionPage = (props) => {
                 
                 <td>{formatDate(mission.startDate)}</td>
                 <td>{formatDate(mission.endDate)}</td>
-                <td><button disabled={mission.raports.length > 0} className="btn btn-sm btn-danger" onClick={() =>handleDelete(mission.id)}>supprimer</button></td>
+                <td><button disabled={mission.raports.length > 0} className="btn btn-sm btn-danger" onClick={() =>supr(mission)}>supprimer</button></td>
                 <td><button  className="btn btn-sm btn-primary" onClick={() =>consulet(mission)}>consulter</button></td>
 
             </tr>)}
@@ -135,6 +146,25 @@ const MissionPage = (props) => {
                                 <div className="modal-footer">
                                   
                                     <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => setConsult(false) }>Fermer</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>}
+                            { sup==true && <div className="modal" tabIndex="-1" role="dialog">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">Suppression</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => setSup(false)}>
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+             <p>voulez vous supprimer la mission : {util.title}</p>
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-danger" onClick={() => handleDelete(util.id) }>Supprimer</button>
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => setSup(false) }>Fermer</button>
                                 </div>
                                 </div>
                             </div>

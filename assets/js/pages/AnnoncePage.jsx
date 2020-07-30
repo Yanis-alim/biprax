@@ -9,7 +9,7 @@ import axios from "axios";
 import { toast } from 'react-toastify';
 
 
-const AnnoncePage = ({history}) => {
+const AnnoncePage = ({history, match }) => {
     const [annonce,setAnnonce]=useState({
         title:"",
         type:"",
@@ -29,6 +29,8 @@ const AnnoncePage = ({history}) => {
 
 
     });
+    const {id ="new"} = match.params;
+    const [editing,setEditing]=useState(false);
     const [errors,setError]=useState({
         title:"",
         type:"",
@@ -44,16 +46,47 @@ const AnnoncePage = ({history}) => {
       
 
     });
+     //Recuperation de d'un raport
+     const fetchAnnonce  =async id =>{
+        try{
+            const {title,type, discription,profile,adress1,adress2,zipCode,city,salary,flag,endDate} = await AnnoncesAPI.find(id);
+           
+            setAnnonce({title,type, discription,profile,adress1,adress2,zipCode,city,salary,flag,endDate});
+
+        }
+        catch(error){
+            console.log(error.response);
+            
+
+        }
+
+    };
+   
+
+    // Recuperation de  bon raport qaund l'identifiant de l'url change
+    useEffect(()=> {
+        if (id !== "new"){
+            setEditing(true);
+            fetchAnnonce(id);
+
+        }
+
+    },[id])
 
     const handleSubmit = async event => {
         event.preventDefault();
         
          try{
              if(annonce.title != "" && annonce.type !="" && annonce.discription !="" && annonce.profile !="" && annonce.adress1 !="" && annonce.zipCode !="" && annonce.city !="" && annonce.salary !=""){
-           
+              if(editing){
+                 await AnnoncesAPI.update(id,annonce);
+                 toast.success("mise a jour effectué");
+                 history.replace("/annonces");
+              }
+              else{
             await AnnoncesAPI.create(annonce);
             toast.success("Annonce ajoutée");
-            history.replace("/annonces");}
+            history.replace("/annonces");}}
             else{
                 toast.warning("Annonce non ajoutée il manque des information");
             }
@@ -84,12 +117,16 @@ const AnnoncePage = ({history}) => {
 
     return ( <> 
      <div className="container pt-5 haut">
-    <h3>cree une annonce</h3>
+     {editing && <h3>modification</h3> || <h3>cree une annonce</h3>}
    
    
    
     <form onSubmit={handleSubmit}>
-  
+    {editing &&  <Select name="flag" label="flag" value={annonce.flag}  error={errors.flag} onChange={handleChange}>
+    <option  >.</option>
+          <option  value={true}>Afficher</option>
+          <option value={false}>Ne pas Afficher</option> )
+        </Select>}
   
   
     <Field 

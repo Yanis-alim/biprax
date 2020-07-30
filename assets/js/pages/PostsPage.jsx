@@ -1,10 +1,19 @@
 import React,{useEffect,useState} from 'react';
 import PostsAPI from "../services/PostsAPI";
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const PostsPage = (props) => {
 
     const [postes ,setPostes]=useState([]);
+    const [sup,setSup] =useState(false);
+    const [util,setUtil]=useState([]);
+   
+    const supr = (poste)=>{
+        setSup(true);
+        setUtil(poste);
+  
+    }
 
     //recuperation des raports 
     const fetchPosts = async ()=>{
@@ -30,10 +39,13 @@ const PostsPage = (props) => {
         setPostes(postes.filter(poste=> poste.id !== id));
         try{
             await PostsAPI.delete(id);
+            setSup(false);
+            toast.success("poste supprimer");
  
         }catch(error){
             console.log(error.response);
             setPostes(originalePostes);
+            toast.warning("echec de la supprission");
  
         }
  
@@ -65,12 +77,31 @@ const PostsPage = (props) => {
                      <td>{poste.post}</td>
                      <td>{poste.description}</td>
                      <td>
-                     <button disabled={poste.contracts.length>0 } className="btn btn-sm btn-danger" onClick={() => handleDelete(poste.id)}>Supprimer</button>
+                     <button disabled={poste.contracts.length>0 } className="btn btn-sm btn-danger" onClick={() => supr(poste)}>Supprimer</button>
                      </td>
                  </tr>)}
              </tbody>
 
     </table>
+    { sup==true && <div className="modal" tabIndex="-1" role="dialog">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">Suppression</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => setSup(false)}>
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+             <p>voulez vous supprimer ce poste  : {util.post}</p>
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-danger" onClick={() => handleDelete(util.id) }>Supprimer</button>
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => setSup(false) }>Fermer</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>}
     </div>
 </> );
 }

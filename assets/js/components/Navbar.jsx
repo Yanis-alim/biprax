@@ -36,7 +36,7 @@ const  Navbar  = ({isAuthenticated, onLogout, history}) => {
   getRole();
   },[]);
     return (
-      <div  className="navix">
+      <div>
       <nav className="navbar fixed-top navbar-expand-xl navbar-light bg-light  ">
      <NavLink className="navbar-brand " to="/"> BIPRAX</NavLink>
     

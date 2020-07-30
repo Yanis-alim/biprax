@@ -10,12 +10,21 @@ import TableLoader from '../components/loaders/TableLoader';
 import  AuthAPI from "../services/AuthAPI";
 import jwt_decode from 'jwt-decode';
 import UsersAPI from "../services/UsersAPI";
+import { toast } from 'react-toastify';
 
 const SocietiesPage = (props) => {
     const [role ,setRole] = useState([]);
     const [societies ,setSocieties]=useState([]);
     const [currentPage, setCurrentPage]=useState(1);
     const [loading,setLoading]=useState(true);
+    const [sup,setSup] =useState(false);
+    const [util,setUtil]=useState([]);
+   
+    const supr = (poste)=>{
+        setSup(true);
+        setUtil(poste);
+  
+    }
 
 
 
@@ -61,10 +70,13 @@ const SocietiesPage = (props) => {
         setSocieties(societies.filter(societies => societies.id !== id));
         try{
             await SocietiesAPI.delete(id);
+            setSup(false);
+            toast.success("societie supprimer");
  
         }catch(error){
             console.log(error.response);
             setSocieties(originaleSocieties);
+            toast.warning("echec de la supprission");
  
         }
  
@@ -109,7 +121,7 @@ const SocietiesPage = (props) => {
                 <td>{societies.adress2}</td>
                 <td>{societies.zipcode}</td>
                 <td>{societies.city}</td>
-            <td> {role=="ROLE_ADMIN" && <button disabled={societies.contractB2Bs.length>0 || societies.contracts.length>0} className="btn btn-sm btn-danger" onClick={() => handleDelete(societies.id)}>Supprimer</button>}</td>
+            <td> {role=="ROLE_ADMIN" && <button disabled={societies.contractB2Bs.length>0 || societies.contracts.length>0} className="btn btn-sm btn-danger" onClick={() => supr(societies)}>Supprimer</button>}</td>
             </tr>)}
         </tbody>
 
@@ -119,6 +131,25 @@ const SocietiesPage = (props) => {
 
 
     </table>}
+    { sup==true && <div className="modal" tabIndex="-1" role="dialog">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">Suppression</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => setSup(false)}>
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+             <p>voulez vous supprimer cette societie  : {util.nom}</p>
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-danger" onClick={() => handleDelete(util.id) }>Supprimer</button>
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => setSup(false) }>Fermer</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>}
     {loading && <TableLoader/>}
     <Pagination currentPage={currentPage} itemPerPage={itemPerPage} onePageChange={handleChangePage} length={societies.length} />
     
