@@ -19,8 +19,13 @@ const AnnoncesPage = ({isAuthenticated}) => {
     const [loading,setLoading]=useState(true);
     const [sup,setSup] =useState(false);
     const [util,setUtil]=useState([]);
+    const[consult,setConsult]=useState(false);
    
-  
+    const consulet = (annonce)=>{
+      setConsult(true);
+      setUtil(annonce);
+
+  }
   
     // permet d'aller récupérer les annonnces
    const fetchAnnonces= async () => {
@@ -147,7 +152,7 @@ const AnnoncesPage = ({isAuthenticated}) => {
        {( role=="ROLE_ADMIN" || annonce.flag==1) && <td className="text-center">{annonce.salary.toLocaleString()}€</td>}
        {( role=="ROLE_ADMIN" || annonce.flag==1) && <td>{formatDate(annonce.dateOfIssue)}</td>}
         {( role=="ROLE_ADMIN" ) &&<td>{(annonce.flag==1)&&<div>vrai</div>||<div>faut</div>}</td>}
-
+        {( role=="ROLE_ADMIN" || annonce.flag==1) && <td><button className="btn btn-sm btn-primary" onClick={() =>consulet(annonce)}>consulter</button></td>}
         {( role=="ROLE_ADMIN") && <td>
           <button 
            onClick={() =>supr(annonce)}
@@ -184,6 +189,31 @@ const AnnoncesPage = ({isAuthenticated}) => {
                                 </div>
                             </div>
                             </div>}
+                            { consult==true && <div className="modal" tabIndex="-1" role="dialog">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">{util.title}</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => setConsult(false)}>
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+                                      <h4> Annonce : {util.title}</h4>
+                                      <p>Type : {util.type}</p>
+                                      <p>profile recherché : {util.profile} </p>
+                                      <p>Ville : {util.city}</p>
+                                      <p>Date: {formatDate(util.dateOfIssue)}</p>
+                                      <p>Description : {util.discription}</p>
+                                </div>
+                                <div className="modal-footer">
+                                  
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => setConsult(false) }>Fermer</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>}
+
     {loading && <TableLoader/>}
 
     <Pagination currentPage={currentPage} itemPerPage={itemPerPage} length={annonces.length} onePageChange={handleChangePage}/>
