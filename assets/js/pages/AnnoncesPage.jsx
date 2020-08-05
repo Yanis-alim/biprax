@@ -1,5 +1,6 @@
+import {APPLICATION_URL} from "../config";
 import React,{useEffect,useState} from 'react';
-
+import axios from "axios";
 import Pagination from '../components/Pagination';
 import AnnoncesAPI from "../services/AnnoncesAPI";
 import UsersAPI from "../services/UsersAPI";
@@ -9,6 +10,8 @@ import  AuthAPI from "../services/AuthAPI";
 import jwt_decode from 'jwt-decode';
 import moment from "moment";
 import { toast } from 'react-toastify';
+import Field from './../components/forms/Field';
+import ApplicationsAPI from "../services/ApplicationsAPI";
 
 
 
@@ -19,12 +22,54 @@ const AnnoncesPage = ({isAuthenticated}) => {
     const [loading,setLoading]=useState(true);
     const [sup,setSup] =useState(false);
     const [util,setUtil]=useState([]);
+    const [post,setPost]=useState([]);
     const[consult,setConsult]=useState(false);
+    const [postul,setPostul]=useState(false);
+    const [application,setApplication]=useState({
+      fname: "",
+      lname: "",
+      email: "",
+      phoneNumbner: "",
+      diploma: "",
+      adress1: "",
+      adress2: "",
+      zipcode: "",
+      city: "",
+      levelStudy: "",
+      work: "",
+      
+      
+
+});
+const [errors,setError]=useState({
+  fname: "",
+  lname: "",
+  email: "",
+  phoneNumbner: "",
+  diploma: "",
+  adress1: "",
+  adress2: "",
+  zipcode: "",
+  city: "",
+  levelStudy: "",
+  work: ""
+  
+
+});
+    
    
     const consulet = (annonce)=>{
       setConsult(true);
       setUtil(annonce);
 
+  }
+  const postuler =(annonce)=>{
+    setPostul(true);
+    setPost(annonce);
+    
+    
+    
+    
   }
   
     // permet d'aller récupérer les annonnces
@@ -60,6 +105,75 @@ const AnnoncesPage = ({isAuthenticated}) => {
     useEffect(()=>{
       getRole();
       },[]);
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
+const handleSubmit = async event => {
+event.preventDefault();
+
+ try{
+  var date = new Date()
+  var gsm =date.getTimezoneOffset() / 60;
+  date=date.toISOString().slice(0, 19);
+    await axios.post(APPLICATION_URL, {...application, dateOfIssus: `${date+gsm}:00`, annonce: `/api/annonces/${util.id}`});
+    toast.success("Candidature envoyer");
+
+
+ }catch({ response }){
+     toast.warning("error")
+     console.log(response);
+   const {violations} =response.data;
+
+   if(violations){
+       
+       const apiErrors = {};
+       violations.forEach(({propertyPath, message}) =>{
+           apiErrors[propertyPath]= message;
+       });
+       setError(apiErrors)
+   }
+ }
+ 
+};
+
+
+
+
+
+
+const handleChange =({ currentTarget }) =>{
+const { name, value} = currentTarget;
+setApplication({ ...application, [name]: value });
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     
       // gestion de la suppression d'une annonce
@@ -209,6 +323,129 @@ const AnnoncesPage = ({isAuthenticated}) => {
                                 <div className="modal-footer">
                                   
                                     <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => setConsult(false) }>Fermer</button>
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => postuler(util) }>postuler</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>}
+                            { postul==true && <div className="modal" tabIndex="-1" role="dialog">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">{util.title}</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => setConsult(false)}>
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+                                <form onSubmit={handleSubmit}>
+                                  <div className="row">
+                                    <div className="col-6">
+      <Field name ="fname" 
+        type="text"
+        label="Nom " 
+        placeholder="nom" 
+        onChange={handleChange} 
+        value={application.fname}
+        error={errors.fname} 
+        />
+        <Field name ="lname" 
+        type="text"
+        label="Prénom" 
+        placeholder=" prénom" 
+        onChange={handleChange} 
+        value={application.lname}
+        error={errors.lname} 
+        />
+        <Field name ="email" 
+        type="text"
+        label="Adresse mail" 
+        placeholder=" adresse mail" 
+        onChange={handleChange} 
+        value={application.email}
+        error={errors.email} 
+        />
+        <Field name ="phoneNumbner" 
+        type="text"
+        label="Numéro de téléphone" 
+        placeholder="numéro de téléphone" 
+        onChange={handleChange} 
+        value={application.phoneNumbner}
+        error={errors.phoneNumbner} 
+        />
+        <Field name ="adress1" 
+        type="text"
+        label="Adresse" 
+        placeholder="adress" 
+        onChange={handleChange} 
+        value={application.adress1}
+        error={errors.adress1} 
+        />
+        <Field name ="adress2" 
+        type="text"
+        label="Complément d'adresse" 
+        placeholder="complément d'adresse" 
+        onChange={handleChange} 
+        value={application.adress2}
+        error={errors.adress2} 
+        />
+        </div>
+        <div className="col-6">
+                  <Field name ="zipcode" 
+        type="text"
+        label="Code postal" 
+        placeholder=" code postal" 
+        onChange={handleChange} 
+        value={application.zipcode}
+        error={errors.zipcode} 
+        />
+        <Field name ="city" 
+        type="text"
+        label="Ville" 
+        placeholder="ville" 
+        onChange={handleChange} 
+        value={application.city}
+        error={errors.city} 
+        />
+         <Field name ="diploma" 
+        type="text"
+        label="Dernier diplôme" 
+        placeholder=" Dernier diplôme" 
+        onChange={handleChange} 
+        value={application.diploma}
+        error={errors.diploma} 
+        />
+         <Field name ="levelStudy" 
+        type="text"
+        label="Niveau d'études" 
+        placeholder="niveau d'études" 
+        onChange={handleChange} 
+        value={application.levelStudy}
+        error={errors.levelStudy} 
+        />
+         <Field name ="work" 
+        type="text"
+        label="Poste actuel" 
+        placeholder="poste actuel" 
+        onChange={handleChange} 
+        value={application.work}
+        error={errors.work} 
+        />
+        <div className="from-group">
+            <button type="submit" className="btn btn-success">
+                envoyer
+                </button>
+                <Link to="/annonces" className="btn btn-link"> Retour aux annonces</Link>
+        </div>
+        </div>
+        </div>
+
+     </form>
+                                </div>
+                                <div className="modal-footer">
+                                  
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => setConsult(false) }>Fermer</button>
+                                   
                                 </div>
                                 </div>
                             </div>
