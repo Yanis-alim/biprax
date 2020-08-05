@@ -26,6 +26,7 @@ class Annonce
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups({"app"})
      */
     private $title;
 

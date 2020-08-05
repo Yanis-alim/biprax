@@ -103,8 +103,9 @@ const ApplicationsPage = (props) => {
                 <th>dernier diplome</th>
                 <th>niveau d'etude</th>
                 <th>travaille</th>
-
                 <th>date de condidateurs</th>
+                <th>Annonce</th>
+               
                 <th></th>
             </tr>
         </thead>
@@ -122,8 +123,8 @@ const ApplicationsPage = (props) => {
                 <td>{application.diploma}</td>
                 <td>{application.levelStudy}</td>
                 <td>{application.work}</td>
-              
                 <td>{application.dateOfIssus}</td>
+                {application.annonce && <td>{application.annonce.title}</td>|| <td>candidature spontanée</td>}
                 {role=="ROLE_ADMIN" && <td>
           <button 
            onClick={() =>supr(application)}

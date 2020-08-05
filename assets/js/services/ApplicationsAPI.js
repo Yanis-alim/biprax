@@ -20,18 +20,15 @@ function create(application){
     var date = new Date()
             var gsm =date.getTimezoneOffset() / 60;
             date=date.toISOString().slice(0, 19);
+            console.log(application);
     return axios.post(APPLICATION_URL, {...application, dateOfIssus: `${date+gsm}:00`});
     
 }
-function creates(application){
-    var date = new Date()
-            var gsm =date.getTimezoneOffset() / 60;
-            date=date.toISOString().slice(0, 19);
-    return axios.post(APPLICATION_URL, {...application, dateOfIssus: `${date+gsm}:00`, annonce: `/api/annonces/172`});}
+
 
 export default {
     findAll: findAll,
     delete: deleteApplication,
     create,
-    creates
+    
 }

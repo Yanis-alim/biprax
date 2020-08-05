@@ -5,10 +5,16 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ApplicationsRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ApplicationsRepository::class)
- * @ApiResource
+ * @ApiResource(
+ *     normalizationContext={ 
+ *       "groups"={"app"} 
+ *    }
+ * 
+ * )
  */
 class Applications
 {
@@ -16,71 +22,85 @@ class Applications
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"app"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=150)
+     * @Groups({"app"})
      */
     private $fname;
 
     /**
      * @ORM\Column(type="string", length=150)
+     * @Groups({"app"})
      */
     private $lname;
 
     /**
      * @ORM\Column(type="string", length=150)
+     * @Groups({"app"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
+     * @Groups({"app"})
      */
     private $phoneNumber;
 
     /**
      * @ORM\Column(type="string", length=150)
+     * @Groups({"app"})
      */
     private $adress1;
 
     /**
      * @ORM\Column(type="string", length=150, nullable=true)
+     * @Groups({"app"})
      */
     private $adress2;
 
     /**
      * @ORM\Column(type="string", length=15)
+     * @Groups({"app"})
      */
     private $zipcode;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups({"app"})
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"app"})
      */
     private $diploma;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"app"})
      */
     private $levelStudy;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"app"})
      */
     private $work;
 
     /**
      * @ORM\ManyToOne(targetEntity=Annonce::class, inversedBy="applications")
+     * @Groups({"app"})
      */
     private $annonce;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"app"})
      */
     private $dateOfIssus;
 
