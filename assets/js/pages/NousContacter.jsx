@@ -13,7 +13,7 @@ const NousContacter = (props) => {
             fname: "",
             lname: "",
             email: "",
-            phoneNumbner: "",
+            phoneNumber: "",
             diploma: "",
             adress1: "",
             adress2: "",
@@ -28,7 +28,7 @@ const NousContacter = (props) => {
         fname: "",
         lname: "",
         email: "",
-        phoneNumbner: "",
+        phoneNumber: "",
         diploma: "",
         adress1: "",
         adress2: "",
@@ -167,12 +167,12 @@ const handleChange =({ currentTarget }) =>{
         value={application.email}
         error={errors.email} 
         />
-        <Field name ="phoneNumbner" 
+        <Field name ="phoneNumber" 
         type="text"
         label="Numéro de téléphone" 
         placeholder="numéro de téléphone" 
         onChange={handleChange} 
-        value={application.phoneNumbner}
+        value={application.phoneNumber}
         error={errors.phoneNumbner} 
         />
         <Field name ="adress1" 
