@@ -29,7 +29,7 @@ const AnnoncesPage = ({isAuthenticated}) => {
       fname: "",
       lname: "",
       email: "",
-      phoneNumbner: "",
+      phoneNumber: "",
       diploma: "",
       adress1: "",
       adress2: "",
@@ -45,7 +45,7 @@ const [errors,setError]=useState({
   fname: "",
   lname: "",
   email: "",
-  phoneNumbner: "",
+  phoneNumber: "",
   diploma: "",
   adress1: "",
   adress2: "",
@@ -365,13 +365,13 @@ setApplication({ ...application, [name]: value });
         value={application.email}
         error={errors.email} 
         />
-        <Field name ="phoneNumbner" 
+        <Field name ="phoneNumber" 
         type="text"
         label="Numéro de téléphone" 
         placeholder="numéro de téléphone" 
         onChange={handleChange} 
-        value={application.phoneNumbner}
-        error={errors.phoneNumbner} 
+        value={application.phoneNumber}
+        error={errors.phoneNumber} 
         />
         <Field name ="adress1" 
         type="text"

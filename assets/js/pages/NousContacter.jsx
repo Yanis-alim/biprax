@@ -173,7 +173,7 @@ const handleChange =({ currentTarget }) =>{
         placeholder="numéro de téléphone" 
         onChange={handleChange} 
         value={application.phoneNumber}
-        error={errors.phoneNumbner} 
+        error={errors.phoneNumber} 
         />
         <Field name ="adress1" 
         type="text"
